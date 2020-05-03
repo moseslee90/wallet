@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:wallet/Common/constants.dart' as constants;
-import 'package:wallet/Screens/home.dart' as homePage;
+import 'package:wallet/common/constants.dart' as constants;
+import 'package:wallet/screens/home.dart' as homePage;
 
 void main() => runApp(MyApp());
 

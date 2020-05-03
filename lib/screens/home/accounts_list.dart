@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wallet/Common/constants.dart' as constants;
+import 'package:wallet/common/constants.dart' as constants;
 
-class Accounts extends StatelessWidget {
+class AccountsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wallet/Common/appbar.dart' as myAppBar;
-import './home/accounts.dart' as accounts;
+import 'package:wallet/common/appbar.dart' as myAppBar;
+import './home/accounts_list.dart' as accounts;
 
 class HomePage extends StatelessWidget {
   @override
@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       body: Container(
         child: ListView(
           children: <Widget>[
-            accounts.Accounts()
+            accounts.AccountsList()
           ],
         ),
       ),
