@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       body: Container(
         child: ListView(
           children: <Widget>[
-            accounts.AccountsList()
+            accounts.AccountsCard()
           ],
         ),
       ),

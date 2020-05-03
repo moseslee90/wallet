@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wallet/common/constants.dart' as constants;
+import 'package:wallet/models/account.dart' as accountModel;
+import 'package:wallet/models/accounts.dart' as accountsModel;
 
-class AccountsList extends StatelessWidget {
+class AccountsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    var accountModels = Provider.of<accountsModel.AccountsModel>(context);
     return Container(
       child: Column(
         children: <Widget>[
           _Header(),
+          AccountsIconList(accountModels),
         ],
       )
     );
@@ -44,5 +49,37 @@ class _SettingsIcon extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class AccountsIconList extends StatelessWidget {
+  final accountsModel.AccountsModel accounts;
+
+  AccountsIconList(this.accounts);
+
+  List<AccountIcon>_accountIcons() {
+    List<AccountIcon> result = [];
+    accounts.accounts.forEach((key, value) => result.add(AccountIcon(value)));
+    return result;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+
+    return Row(
+      children: _accountIcons(),
+    );
+  }
+}
+
+class AccountIcon extends StatelessWidget {
+  final accountModel.AccountModel account;
+  AccountIcon(this.account);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Text(account.total.toString());
   }
 }
