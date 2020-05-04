@@ -67,14 +67,13 @@ class AccountIconsGrid extends StatelessWidget {
     // TODO: implement build
 
     return Container(
-      height: 80.0,
       width: 250.0,
-      child: Center(
-        child: GridView.count(
-          crossAxisCount: 3,
-          children: _accountIcons(),
-        ),
-      ),
+      child: Wrap(
+        spacing: 8.0,
+        runSpacing: 4.0,
+        alignment: WrapAlignment.center,
+        children: _accountIcons(),
+      )
     );
   }
 }
@@ -90,7 +89,7 @@ class AccountIcon extends StatelessWidget {
     return InputChip(
       label: Text(account.total.toString()),
       labelStyle: TextStyle(color: Colors.white),
-      backgroundColor: Colors.blue.shade400,
+      backgroundColor: account.color,
       onPressed: () {
         print('pressed');
       },

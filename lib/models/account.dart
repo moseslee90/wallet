@@ -1,5 +1,9 @@
-class AccountModel {
-  final int total, id;
+import 'package:flutter/material.dart';
 
-  AccountModel(this.id, this.total);
+class AccountModel {
+  final int id;
+  final Color color;
+  int total;
+
+  AccountModel(this.id, this.total, this.color);
 }
