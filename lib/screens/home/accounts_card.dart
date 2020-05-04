@@ -10,13 +10,12 @@ class AccountsCard extends StatelessWidget {
     // TODO: implement build
     var accountModels = Provider.of<accountsModel.AccountsModel>(context);
     return Container(
-      child: Column(
-        children: <Widget>[
-          _Header(),
-          AccountsIconList(accountModels),
-        ],
-      )
-    );
+        child: Column(
+      children: <Widget>[
+        _Header(),
+        AccountIconsGrid(accountModels),
+      ],
+    ));
   }
 }
 
@@ -52,12 +51,12 @@ class _SettingsIcon extends StatelessWidget {
   }
 }
 
-class AccountsIconList extends StatelessWidget {
+class AccountIconsGrid extends StatelessWidget {
   final accountsModel.AccountsModel accounts;
 
-  AccountsIconList(this.accounts);
+  AccountIconsGrid(this.accounts);
 
-  List<AccountIcon>_accountIcons() {
+  List<AccountIcon> _accountIcons() {
     List<AccountIcon> result = [];
     accounts.accounts.forEach((key, value) => result.add(AccountIcon(value)));
     return result;
@@ -67,19 +66,34 @@ class AccountsIconList extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    return Row(
-      children: _accountIcons(),
+    return Container(
+      height: 80.0,
+      width: 250.0,
+      child: Center(
+        child: GridView.count(
+          crossAxisCount: 3,
+          children: _accountIcons(),
+        ),
+      ),
     );
   }
 }
 
 class AccountIcon extends StatelessWidget {
   final accountModel.AccountModel account;
+
   AccountIcon(this.account);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Text(account.total.toString());
+    return InputChip(
+      label: Text(account.total.toString()),
+      labelStyle: TextStyle(color: Colors.white),
+      backgroundColor: Colors.blue.shade400,
+      onPressed: () {
+        print('pressed');
+      },
+    );
   }
 }

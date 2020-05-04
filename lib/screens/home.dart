@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallet/common/appbar.dart' as myAppBar;
-import './home/accounts_list.dart' as accounts;
+import './home/accounts_card.dart' as accounts;
 
 class HomePage extends StatelessWidget {
   @override
