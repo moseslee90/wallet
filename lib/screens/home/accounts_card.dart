@@ -14,6 +14,12 @@ class AccountsCard extends StatelessWidget {
       children: <Widget>[
         _Header(),
         AccountIconsGrid(accountModels),
+        GestureDetector(
+          onTap: () {
+            accountModels.updateAccountsFromDB();
+          },
+          child: Text('update accounts'),
+        )
       ],
     ));
   }
@@ -40,11 +46,17 @@ class _SettingsIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Card(
-      child: Container(
-        padding: const EdgeInsets.all(5.0),
-        child: Center(
-          child: Icon(Icons.settings, size: 20.0),
+    return GestureDetector(
+      onTap: () {
+        var accountModels = Provider.of<accountsModel.AccountsModel>(context, listen: false);
+        accountModels.insetRandomAccount();
+      },
+      child: Card(
+        child: Container(
+          padding: const EdgeInsets.all(5.0),
+          child: Center(
+            child: Icon(Icons.settings, size: 20.0),
+          ),
         ),
       ),
     );
@@ -67,14 +79,13 @@ class AccountIconsGrid extends StatelessWidget {
     // TODO: implement build
 
     return Container(
-      width: 250.0,
-      child: Wrap(
-        spacing: 8.0,
-        runSpacing: 4.0,
-        alignment: WrapAlignment.center,
-        children: _accountIcons(),
-      )
-    );
+        width: 250.0,
+        child: Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          alignment: WrapAlignment.center,
+          children: _accountIcons(),
+        ));
   }
 }
 
@@ -89,7 +100,7 @@ class AccountIcon extends StatelessWidget {
     return InputChip(
       label: Text(account.total.toString()),
       labelStyle: TextStyle(color: Colors.white),
-      backgroundColor: account.color,
+      backgroundColor: Color(account.color),
       onPressed: () {
         print('pressed');
       },

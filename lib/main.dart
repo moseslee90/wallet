@@ -13,9 +13,11 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ChangeNotifierProvider<accountsModel.AccountsModel> accountsProvider =
+      ChangeNotifierProvider(create: (context) => accountsModel.AccountsModel());
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => accountsModel.AccountsModel()),
+        accountsProvider,
       ],
       child: MaterialApp(
         title: constants.WALLET,
