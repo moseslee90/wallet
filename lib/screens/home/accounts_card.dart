@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet/common/constants.dart' as constants;
-import 'package:wallet/models/account.dart' as accountModel;
-import 'package:wallet/models/accounts.dart' as accountsModel;
+import 'package:wallet/models/account.dart';
+import 'package:wallet/models/accounts.dart';
+import 'package:wallet/models/store.dart';
 
 class AccountsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    var accountModels = Provider.of<accountsModel.AccountsModel>(context);
+    var store = Provider.of<StoreModel>(context);
     return Container(
         child: Column(
       children: <Widget>[
         _Header(),
-        AccountIconsGrid(accountModels),
+        AccountIconsGrid(store.accounts),
         GestureDetector(
           onTap: () {
-            accountModels.updateAccountsFromDB();
           },
           child: Text('update accounts'),
         )
@@ -48,8 +48,9 @@ class _SettingsIcon extends StatelessWidget {
     // TODO: implement build
     return GestureDetector(
       onTap: () {
-        var accountModels = Provider.of<accountsModel.AccountsModel>(context, listen: false);
-        accountModels.insetRandomAccount();
+        final store = Provider.of<StoreModel>(context, listen: false);
+        store.addAccount('some account', constants.BLUE);
+        //do something with store when this is clicked
       },
       child: Card(
         child: Container(
@@ -64,13 +65,13 @@ class _SettingsIcon extends StatelessWidget {
 }
 
 class AccountIconsGrid extends StatelessWidget {
-  final accountsModel.AccountsModel accounts;
+  final AccountsModel accounts;
 
   AccountIconsGrid(this.accounts);
 
   List<AccountIcon> _accountIcons() {
     List<AccountIcon> result = [];
-    accounts.accounts.forEach((key, value) => result.add(AccountIcon(value)));
+    accounts.accounts.forEach((_, value) => result.add(AccountIcon(value)));
     return result;
   }
 
@@ -90,7 +91,7 @@ class AccountIconsGrid extends StatelessWidget {
 }
 
 class AccountIcon extends StatelessWidget {
-  final accountModel.AccountModel account;
+  final AccountModel account;
 
   AccountIcon(this.account);
 
@@ -98,7 +99,7 @@ class AccountIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return InputChip(
-      label: Text(account.total.toString()),
+      label: Text(account.totalToString()),
       labelStyle: TextStyle(color: Colors.white),
       backgroundColor: Color(account.color),
       onPressed: () {

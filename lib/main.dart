@@ -6,18 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet/common/constants.dart' as constants;
 import 'package:wallet/screens/home.dart' as homePage;
-import 'package:wallet/models/accounts.dart' as accountsModel;
+import 'package:wallet/models/store.dart' as storeModel;
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ChangeNotifierProvider<accountsModel.AccountsModel> accountsProvider =
-      ChangeNotifierProvider(create: (context) => accountsModel.AccountsModel());
+    ChangeNotifierProvider<storeModel.StoreModel> storeProvider =
+      ChangeNotifierProvider(create: (context) => storeModel.StoreModel());
+    print(storeProvider);
     return MultiProvider(
       providers: [
-        accountsProvider,
+        storeProvider,
       ],
       child: MaterialApp(
         title: constants.WALLET,
