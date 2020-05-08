@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import './item.dart';
 import './items.dart';
 import './accounts.dart';
 import './account.dart';
@@ -56,6 +57,19 @@ class StoreModel extends ChangeNotifier {
       final id = await dbInstance.insertAccount(account);
       account.id = id;
       accounts.addAccount(account);
+
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  addItem(String name, int amount, int accountId, int categoryId, int transactionType) async {
+    var item = ItemModel(name: name, amount: amount, accountId: accountId, categoryId: categoryId, transactionType: transactionType);
+    try {
+      final id = await dbInstance.insertItem(item);
+      item.id = id;
+      items.addItem(item);
 
       notifyListeners();
     } catch (e) {

@@ -1,25 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import './item.dart' as item;
+import './item.dart';
 import 'package:wallet/database_helpers.dart' as databaseHelper;
 
 class ItemsModel {
   /// Internal, private state of items
 
-  Map<int, item.ItemModel> _items = {};
+  Map<int, ItemModel> items = {};
 
-  ItemsModel(this._items);
+  ItemsModel(this.items);
 
-  Map<int, item.ItemModel> get items => _items;
-  set items(Map<int, item.ItemModel> value) {
-    this._items = value;
-  }
+  ItemModel getItemById(int id) => items[id];
 
-  item.ItemModel getItemById(int id) => _items[id];
-
-  List<item.ItemModel> getForAccountId(int accountId) {
-    List<item.ItemModel> result = [];
-    _items.forEach((_, value) {
+  List<ItemModel> getForAccountId(int accountId) {
+    List<ItemModel> result = [];
+    items.forEach((_, value) {
       if (value.accountId == accountId) {
         result.add(value);
       }
@@ -29,9 +24,13 @@ class ItemsModel {
 
   int getTotalForAccount(int accountId) {
     int result = 0;
-    _items.forEach((_, value) {
+    items.forEach((_, value) {
       result += value.amount;
     });
     return result;
+  }
+
+  addItem(ItemModel item) {
+    items[item.id] = item;
   }
 }
