@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallet/common/constants.dart' as constants;
+import 'package:wallet/common/constants.dart';
 import 'package:wallet/models/account.dart';
 import 'package:wallet/models/accounts.dart';
 import 'package:wallet/models/store.dart';
@@ -32,7 +32,7 @@ class _Header extends StatelessWidget {
       padding: EdgeInsets.only(left: 10.0, right: 6.0, top: 6.0, bottom: 10.0),
       child: Row(
         children: <Widget>[
-          Text(constants.LIST_OF_ACCOUNTS),
+          Text(LIST_OF_ACCOUNTS),
           _SettingsIcon(),
         ],
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,7 +47,7 @@ class _SettingsIcon extends StatelessWidget {
     // TODO: implement build
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/add_account');
+        Navigator.pushNamed(context, ADD_ACCOUNT_PATH);
         //do something with store when this is clicked
       },
       child: Card(

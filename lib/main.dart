@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallet/common/constants.dart' as constants;
+import 'package:wallet/common/constants.dart';
 import 'package:wallet/screens/home.dart' as homePage;
 import 'package:wallet/screens/add_account.dart' as addAccount;
 import 'package:wallet/models/store.dart' as storeModel;
@@ -23,15 +23,15 @@ class MyApp extends StatelessWidget {
         storeProvider,
       ],
       child: MaterialApp(
-        title: constants.WALLET,
+        title: WALLET,
         initialRoute: '/',
         theme: ThemeData(
             textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context).textTheme,
         )),
         routes: {
-          '/': (context) => homePage.HomePage(),
-          '/add_account': (context) => addAccount.AddAccountPage(),
+          HOME_PATH: (context) => homePage.HomePage(),
+          ADD_ACCOUNT_PATH: (context) => addAccount.AddAccountPage(),
         },
       ),
     );

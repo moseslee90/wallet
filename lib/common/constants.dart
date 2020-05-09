@@ -49,3 +49,7 @@ final String columnTransactionType = 'transaction_type';
 
 final String tableCategory = 'category';
 final String columnName = 'name';
+
+// paths
+final String HOME_PATH = '/';
+final String ADD_ACCOUNT_PATH = '/account/add';
