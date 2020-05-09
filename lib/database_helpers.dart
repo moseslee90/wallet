@@ -44,25 +44,25 @@ class DatabaseHelper {
   // SQL string to create the database
   Future _onCreate(Database db, int version) async {
     await db.execute('''
-              CREATE TABLE IF NOT EXISTS ${constants.tableAccounts} (
-                ${constants.columnId} INTEGER PRIMARY KEY,
-                ${constants.columnName} TEXT NOT NULL,
-                ${constants.columnColor} INTEGER NOT NULL
+              CREATE TABLE IF NOT EXISTS ${constants.TABLE_ACCOUNTS} (
+                ${constants.COLUMN_ID} INTEGER PRIMARY KEY,
+                ${constants.COLUMN_NAME} TEXT NOT NULL,
+                ${constants.COLUMN_COLOR} INTEGER NOT NULL
               );
               ''');
     await db.execute('''
-              CREATE TABLE IF NOT EXISTS ${constants.tableCategory} (
-                ${constants.columnName} TINYTEXT NOT NULL
+              CREATE TABLE IF NOT EXISTS ${constants.TABLE_CATEGORY} (
+                ${constants.COLUMN_NAME} TINYTEXT NOT NULL
               );
               ''');
     await db.execute('''
-              CREATE TABLE IF NOT EXISTS ${constants.tableItems} (
-                ${constants.columnId} INTEGER PRIMARY KEY,
-                ${constants.columnName} TEXT NOT NULL,
-                ${constants.columnAmount} INTEGER NOT NULL,
-                ${constants.columnTransactionType} BOOLEAN NOT NULL,
-                ${constants.columnAccountId} INTEGER NOT NULL,
-                ${constants.columnCategoryId} INTEGER NOT NULL
+              CREATE TABLE IF NOT EXISTS ${constants.TABLE_ITEMS} (
+                ${constants.COLUMN_ID} INTEGER PRIMARY KEY,
+                ${constants.COLUMN_NAME} TEXT NOT NULL,
+                ${constants.COLUMN_AMOUNT} INTEGER NOT NULL,
+                ${constants.COLUMN_TRANSACTION_TYPE} BOOLEAN NOT NULL,
+                ${constants.COLUMN_ACCOUNT_ID} INTEGER NOT NULL,
+                ${constants.COLUMN_CATEGORY_ID} INTEGER NOT NULL
               );
               ''');
   }
@@ -71,15 +71,15 @@ class DatabaseHelper {
 
   Future<int> insertAccount(AccountModel account) async {
     Database db = await database;
-    int id = await db.insert(constants.tableAccounts, account.toMap());
+    int id = await db.insert(constants.TABLE_ACCOUNTS, account.toMap());
     return id;
   }
 
   Future<AccountModel> queryAccount(int id) async {
     Database db = await database;
-    List<Map> accountMaps = await db.query(constants.tableAccounts,
-        columns: [constants.columnId, constants.columnColor],
-        where: '${constants.columnId} = ?',
+    List<Map> accountMaps = await db.query(constants.TABLE_ACCOUNTS,
+        columns: [constants.COLUMN_ID, constants.COLUMN_COLOR],
+        where: '${constants.COLUMN_ID} = ?',
         whereArgs: [id]);
     if (accountMaps.length > 0) {
       return AccountModel.fromMap(accountMaps.first);
@@ -90,8 +90,8 @@ class DatabaseHelper {
   Future<Map<int, AccountModel>> queryAccounts() async {
     Database db = await database;
     Map<int, AccountModel> accountModelMap = {};
-    List<Map> maps = await db.query(constants.tableAccounts,
-        columns: [constants.columnId, constants.columnColor]);
+    List<Map> maps = await db.query(constants.TABLE_ACCOUNTS,
+        columns: [constants.COLUMN_ID, constants.COLUMN_COLOR]);
     maps.forEach((map) {
       AccountModel account = AccountModel.fromMap(map);
       accountModelMap[account.id] = account;
@@ -104,15 +104,15 @@ class DatabaseHelper {
 
   Future<int> insertItem(ItemModel item) async {
     Database db = await database;
-    int id = await db.insert(constants.tableItems, item.toMap());
+    int id = await db.insert(constants.TABLE_ITEMS, item.toMap());
     return id;
   }
 
   Future<Map<int, ItemModel>> queryItems() async {
     Database db = await database;
     Map<int, ItemModel> itemModelMap = {};
-    List<Map> maps = await db.query(constants.tableItems,
-        columns: [constants.columnId, constants.columnName, constants.columnAmount, constants.columnAccountId, constants.columnCategoryId, constants.columnTransactionType]);
+    List<Map> maps = await db.query(constants.TABLE_ITEMS,
+        columns: [constants.COLUMN_ID, constants.COLUMN_NAME, constants.COLUMN_AMOUNT, constants.COLUMN_ACCOUNT_ID, constants.COLUMN_CATEGORY_ID, constants.COLUMN_TRANSACTION_TYPE]);
     maps.forEach((map) {
       ItemModel item = ItemModel.fromMap(map);
       itemModelMap[item.id] = item;
@@ -125,15 +125,15 @@ class DatabaseHelper {
 
   Future<int> insertCategory(CategoryModel item) async {
     Database db = await database;
-    int id = await db.insert(constants.tableCategory, item.toMap());
+    int id = await db.insert(constants.TABLE_CATEGORY, item.toMap());
     return id;
   }
 
   Future<Map<int, ItemModel>> queryCategory() async {
     Database db = await database;
     Map<int, ItemModel> itemModelMap = {};
-    List<Map> maps = await db.query(constants.tableCategory,
-        columns: [constants.columnId, constants.columnName]);
+    List<Map> maps = await db.query(constants.TABLE_CATEGORY,
+        columns: [constants.COLUMN_ID, constants.COLUMN_NAME]);
     maps.forEach((map) {
       ItemModel item = ItemModel.fromMap(map);
       itemModelMap[item.id] = item;

@@ -47,7 +47,7 @@ class _SettingsIcon extends StatelessWidget {
     // TODO: implement build
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, ADD_ACCOUNT_PATH);
+        Navigator.pushNamed(context, PATH_ACCOUNT_ADD);
         //do something with store when this is clicked
       },
       child: Card(

@@ -1,55 +1,55 @@
-final String WALLET = 'Wallet';
-final String LIST_OF_ACCOUNTS = 'List of accounts';
+const String WALLET = 'Wallet';
+const String LIST_OF_ACCOUNTS = 'List of accounts';
 
 // Colors
-final int BLUE = 0xFF42A5F5;
-final int GREEN = 0xFF4CAF50;
-final int INDIGO = 0xFF5C6BC0;
-final int TEAL = 0xFF4DB6AC;
-final int ORANGE = 0xFFFFB74D;
+const int BLUE_INT = 0xFF42A5F5;
+const int GREEN_INT = 0xFF4CAF50;
+const int INDIGO_INT = 0xFF5C6BC0;
+const int TEAL_INT = 0xFF4DB6AC;
+const int ORANGE_INT = 0xFFFFB74D;
 
-final String blue = 'blue';
-final String green = 'green';
-final String indigo = 'indigo';
-final String teal = 'teal';
-final String orange = 'orange';
+const String BLUE_STRING = 'blue';
+const String GREEN_STRING = 'green';
+const String INDIGO_STRING = 'indigo';
+const String TEAL_STRING = 'teal';
+const String ORANGE_STRING = 'orange';
 
-final Map<String, int> colors = {
-  blue: BLUE,
-  green: GREEN,
-  indigo: INDIGO,
-  teal: TEAL,
-  orange: ORANGE,
+const Map<String, int> colors = {
+  BLUE_STRING: BLUE_INT,
+  GREEN_STRING: GREEN_INT,
+  INDIGO_STRING: INDIGO_INT,
+  TEAL_STRING: TEAL_INT,
+  ORANGE_STRING: ORANGE_INT,
 };
 
-final String EXPENSE = 'expense';
-final String INCOME = 'income';
-final String TRANSFER = 'transfer';
+const String EXPENSE_STRING = 'expense';
+const String INCOME_STRING = 'income';
+const String TRANSFER_STRING = 'transfer';
 
-final int expense = 0;
-final int income = 1;
-final int transfer = 2;
+const int EXPENSE_INT = 0;
+const int INCOME_INT = 1;
+const int TRANSFER_INT = 2;
 
-final Map<int, String> transactionType = {
-  expense: EXPENSE,
-  income: INCOME,
-  transfer: TRANSFER,
+const Map<int, String> TRANSACTION_TYPE = {
+  EXPENSE_INT: EXPENSE_STRING,
+  INCOME_INT: INCOME_STRING,
+  TRANSFER_INT: TRANSFER_STRING,
 };
 
 // database constants
-final String tableAccounts = 'accounts';
-final String columnId = 'id';
-final String columnColor = 'color';
+const String TABLE_ACCOUNTS = 'accounts';
+const String COLUMN_ID = 'id';
+const String COLUMN_COLOR = 'color';
 
-final String tableItems = 'items';
-final String columnAmount = 'amount';
-final String columnAccountId = 'account_id';
-final String columnCategoryId = 'category_id';
-final String columnTransactionType = 'transaction_type';
+const String TABLE_ITEMS = 'items';
+const String COLUMN_AMOUNT = 'amount';
+const String COLUMN_ACCOUNT_ID = 'account_id';
+const String COLUMN_CATEGORY_ID = 'category_id';
+const String COLUMN_TRANSACTION_TYPE = 'transaction_type';
 
-final String tableCategory = 'category';
-final String columnName = 'name';
+const String TABLE_CATEGORY = 'category';
+const String COLUMN_NAME = 'name';
 
 // paths
-final String HOME_PATH = '/';
-final String ADD_ACCOUNT_PATH = '/account/add';
+const String PATH_HOME = '/';
+const String PATH_ACCOUNT_ADD = '/account/add';

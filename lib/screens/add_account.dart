@@ -31,7 +31,7 @@ class _AccountInputState extends State<AccountInput> {
           child: Text(defaultColor, style: TextStyle(color: Colors.grey)))
     ];
     dropdownColors
-        .addAll(<String>[blue, green, indigo, teal, orange].map((String value) {
+        .addAll(<String>[BLUE_STRING, GREEN_STRING, INDIGO_STRING, TEAL_STRING, ORANGE_STRING].map((String value) {
       return DropdownMenuItem(
         value: value,
         child: Text(value),

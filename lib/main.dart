@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         )),
         routes: {
-          HOME_PATH: (context) => homePage.HomePage(),
-          ADD_ACCOUNT_PATH: (context) => addAccount.AddAccountPage(),
+          PATH_HOME: (context) => homePage.HomePage(),
+          PATH_ACCOUNT_ADD: (context) => addAccount.AddAccountPage(),
         },
       ),
     );

@@ -10,18 +10,18 @@ class AccountModel {
   AccountModel(this.id, this.name, this.color);
 
   AccountModel.fromMap(Map<String, dynamic> map) {
-    id = map[constants.columnId];
-    name = map[constants.columnName];
-    color = map[constants.columnColor];
+    id = map[constants.COLUMN_ID];
+    name = map[constants.COLUMN_NAME];
+    color = map[constants.COLUMN_COLOR];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      constants.columnColor: color,
-      constants.columnName: name,
+      constants.COLUMN_COLOR: color,
+      constants.COLUMN_NAME: name,
     };
     if (id != null) {
-      map[constants.columnId] = id;
+      map[constants.COLUMN_ID] = id;
     }
     return map;
   }

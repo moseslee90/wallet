@@ -12,22 +12,22 @@ class ItemModel {
   ItemModel({this.id, this.name, this.amount, this.accountId, this.categoryId, this.transactionType});
 
   ItemModel.fromMap(Map<String, dynamic> map) {
-    id = map[constants.columnId];
-    amount = map[constants.columnAmount];
-    accountId = map[constants.columnAccountId];
-    categoryId = map[constants.columnCategoryId];
-    transactionType = map[constants.columnTransactionType];
+    id = map[constants.COLUMN_ID];
+    amount = map[constants.COLUMN_AMOUNT];
+    accountId = map[constants.COLUMN_ACCOUNT_ID];
+    categoryId = map[constants.COLUMN_CATEGORY_ID];
+    transactionType = map[constants.COLUMN_TRANSACTION_TYPE];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      constants.columnAmount: amount,
-      constants.columnAccountId: accountId,
-      constants.columnCategoryId: categoryId,
-      constants.columnTransactionType: transactionType,
+      constants.COLUMN_AMOUNT: amount,
+      constants.COLUMN_ACCOUNT_ID: accountId,
+      constants.COLUMN_CATEGORY_ID: categoryId,
+      constants.COLUMN_TRANSACTION_TYPE: transactionType,
     };
     if (id != null) {
-      map[constants.columnId] = id;
+      map[constants.COLUMN_ID] = id;
     }
     return map;
   }
@@ -37,6 +37,6 @@ class ItemModel {
   }
 
   String transactionTypeToString() {
-    return constants.transactionType[transactionType];
+    return constants.TRANSACTION_TYPE[transactionType];
   }
 }

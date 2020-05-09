@@ -7,16 +7,16 @@ class CategoryModel {
   CategoryModel(this.id, this.name);
 
   CategoryModel.fromMap(Map<String, dynamic> map) {
-    id = map[constants.columnId];
-    name = map[constants.columnName];
+    id = map[constants.COLUMN_ID];
+    name = map[constants.COLUMN_NAME];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      constants.columnName: name,
+      constants.COLUMN_NAME: name,
     };
     if (id != null) {
-      map[constants.columnId] = id;
+      map[constants.COLUMN_ID] = id;
     }
     return map;
   }
