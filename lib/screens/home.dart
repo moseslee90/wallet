@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:wallet/common/appbar.dart' as myAppBar;
-import './home/accounts_card.dart' as accounts;
+import './home/accounts_card.dart';
+import 'package:wallet/common/scaffold.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: myAppBar.MyAppBar(),
+    return MyScaffold(
       body: Container(
         child: ListView(
           children: <Widget>[
-            accounts.AccountsCard()
+            AccountsCard()
           ],
         ),
       ),

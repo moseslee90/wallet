@@ -9,7 +9,7 @@ class AddAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MyScaffold(
-      child: AccountInput(),
+      body: AccountInput(),
     );
   }
 }
