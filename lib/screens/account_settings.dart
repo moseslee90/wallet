@@ -11,7 +11,7 @@ class AccountSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MyScaffold(
-      Text('test'),
+      child: Text('test'),
     );
   }
 }

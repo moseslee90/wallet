@@ -4,7 +4,7 @@ import 'package:wallet/common/appbar.dart';
 class MyScaffold extends StatelessWidget {
   final Widget child;
 
-  MyScaffold(this.child);
+  MyScaffold({this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:wallet/common/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet/models/store.dart';
-import 'package:wallet/common/appbar.dart' as myAppBar;
+import 'package:wallet/common/scaffold.dart';
 
 class AddAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: myAppBar.MyAppBar(),
-      body: AccountInput(),
+    return MyScaffold(
+      child: AccountInput(),
     );
   }
 }
