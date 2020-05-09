@@ -53,3 +53,4 @@ const String COLUMN_NAME = 'name';
 // paths
 const String PATH_HOME = '/';
 const String PATH_ACCOUNT_ADD = '/account/add';
+const String PATH_ACCOUNT_SETTINGS ='/account/settings';
