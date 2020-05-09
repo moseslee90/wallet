@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet/common/constants.dart';
 import 'package:wallet/screens/home.dart';
-import 'package:wallet/screens/add_account.dart';
+import 'package:wallet/screens/account_add.dart';
 import 'package:wallet/models/store.dart';
 import 'package:google_fonts/google_fonts.dart';
 
