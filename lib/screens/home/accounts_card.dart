@@ -16,10 +16,9 @@ class AccountsCard extends StatelessWidget {
         _Header(),
         AccountIconsGrid(store.accounts),
         GestureDetector(
-          onTap: () {
-          },
+          onTap: () {},
           child: Text('update accounts'),
-        )
+        ),
       ],
     ));
   }
@@ -48,8 +47,7 @@ class _SettingsIcon extends StatelessWidget {
     // TODO: implement build
     return GestureDetector(
       onTap: () {
-        final store = Provider.of<StoreModel>(context, listen: false);
-        store.addAccount('some account', constants.BLUE);
+        Navigator.pushNamed(context, '/add_account');
         //do something with store when this is clicked
       },
       child: Card(
@@ -80,12 +78,16 @@ class AccountIconsGrid extends StatelessWidget {
     // TODO: implement build
 
     return Container(
-        width: 250.0,
-        child: Wrap(
-          spacing: 8.0,
-          runSpacing: 4.0,
-          alignment: WrapAlignment.center,
-          children: _accountIcons(),
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        child: Row(
+          children: <Widget>[
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 4.0,
+              alignment: WrapAlignment.start,
+              children: _accountIcons(),
+            )
+          ],
         ));
   }
 }
@@ -98,13 +100,32 @@ class AccountIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return InputChip(
-      label: Text(account.totalToString()),
-      labelStyle: TextStyle(color: Colors.white),
-      backgroundColor: Color(account.color),
-      onPressed: () {
-        print('pressed');
-      },
-    );
+    return Card(
+        color: Color(account.color),
+        child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Container(
+              width: 100,
+              height: 40,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    account.name,
+                    style: TextStyle(
+                      color: Colors.grey.shade300,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                  Text(account.totalToString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
+              ),
+            )));
   }
 }

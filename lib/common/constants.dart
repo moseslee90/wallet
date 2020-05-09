@@ -8,13 +8,13 @@ final int INDIGO = 0xFF5C6BC0;
 final int TEAL = 0xFF4DB6AC;
 final int ORANGE = 0xFFFFB74D;
 
-final int blue = 0;
-final int green = 1;
-final int indigo = 2;
-final int teal = 3;
-final int orange = 4;
+final String blue = 'blue';
+final String green = 'green';
+final String indigo = 'indigo';
+final String teal = 'teal';
+final String orange = 'orange';
 
-final Map<int, int> colors = {
+final Map<String, int> colors = {
   blue: BLUE,
   green: GREEN,
   indigo: INDIGO,
