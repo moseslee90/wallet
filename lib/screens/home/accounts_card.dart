@@ -47,7 +47,7 @@ class _SettingsIcon extends StatelessWidget {
     // TODO: implement build
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, PATH_ACCOUNT_ADD);
+        Navigator.pushNamed(context, PATH_ACCOUNT_SETTINGS);
         //do something with store when this is clicked
       },
       child: Card(
@@ -112,14 +112,14 @@ class AccountIcon extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Text(
-                    account.name,
+                    account.name != null ? account.name : '',
                     style: TextStyle(
                       color: Colors.grey.shade300,
                       fontWeight: FontWeight.w600,
                       fontSize: 12.0,
                     ),
                   ),
-                  Text(account.totalToString(),
+                  Text(account.totalToString() != null ? account.totalToString() : '',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:wallet/common/constants.dart';
 import 'package:wallet/screens/home.dart';
 import 'package:wallet/screens/account_add.dart';
+import 'package:wallet/screens/account_settings.dart';
 import 'package:wallet/models/store.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         routes: {
           PATH_HOME: (context) => HomePage(),
           PATH_ACCOUNT_ADD: (context) => AddAccountPage(),
+          PATH_ACCOUNT_SETTINGS: (context) => AccountSettingsPage(),
         },
       ),
     );

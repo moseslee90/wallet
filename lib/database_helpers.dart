@@ -78,7 +78,7 @@ class DatabaseHelper {
   Future<AccountModel> queryAccount(int id) async {
     Database db = await database;
     List<Map> accountMaps = await db.query(constants.TABLE_ACCOUNTS,
-        columns: [constants.COLUMN_ID, constants.COLUMN_COLOR],
+        columns: [constants.COLUMN_ID, constants.COLUMN_NAME, constants.COLUMN_COLOR],
         where: '${constants.COLUMN_ID} = ?',
         whereArgs: [id]);
     if (accountMaps.length > 0) {
@@ -91,7 +91,7 @@ class DatabaseHelper {
     Database db = await database;
     Map<int, AccountModel> accountModelMap = {};
     List<Map> maps = await db.query(constants.TABLE_ACCOUNTS,
-        columns: [constants.COLUMN_ID, constants.COLUMN_COLOR]);
+        columns: [constants.COLUMN_ID, constants.COLUMN_NAME, constants.COLUMN_COLOR]);
     maps.forEach((map) {
       AccountModel account = AccountModel.fromMap(map);
       accountModelMap[account.id] = account;
