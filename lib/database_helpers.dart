@@ -52,7 +52,8 @@ class DatabaseHelper {
               ''');
       await txn.execute('''
               CREATE TABLE IF NOT EXISTS $TABLE_CATEGORY (
-                $COLUMN_NAME TINYTEXT NOT NULL
+                $COLUMN_NAME TEXT NOT NULL,
+                $COLUMN_COLOR INTEGER NOT NULL
               );
               ''');
       await txn.execute('''
@@ -146,7 +147,7 @@ class DatabaseHelper {
     Database db = await database;
     Map<int, ItemModel> itemModelMap = {};
     List<Map> maps =
-        await db.query(TABLE_CATEGORY, columns: [COLUMN_ID, COLUMN_NAME]);
+        await db.query(TABLE_CATEGORY, columns: [COLUMN_ID, COLUMN_NAME, COLUMN_COLOR]);
     maps.forEach((map) {
       ItemModel item = ItemModel.fromMap(map);
       itemModelMap[item.id] = item;

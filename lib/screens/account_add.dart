@@ -18,9 +18,9 @@ class _AccountInputState extends State<AccountInput> {
   final _formKey = GlobalKey<FormState>();
   static String defaultColor = 'Choose a Color';
   static String title = 'Add Account';
-  String accountName = '';
-  int accountColor = 0;
-  String accountColorName = defaultColor;
+  String name = '';
+  int color = 0;
+  String colorName = defaultColor;
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +56,11 @@ class _AccountInputState extends State<AccountInput> {
                   return null;
                 },
                 onChanged: (value) {
-                  accountName = value;
+                  name = value;
                 },
               ),
               DropdownButtonFormField(
-                value: accountColorName,
+                value: colorName,
                 decoration: const InputDecoration(
                   hintText: 'Select Color',
                 ),
@@ -72,9 +72,9 @@ class _AccountInputState extends State<AccountInput> {
                 },
                 items: dropdownColors,
                 onChanged: (value) {
-                  accountColor = colors[value];
+                  color = colors[value];
                   setState(() {
-                    accountColorName = value;
+                    colorName = value;
                   });
                 },
               ),
@@ -86,9 +86,9 @@ class _AccountInputState extends State<AccountInput> {
                     // the form is invalid.
                     if (_formKey.currentState.validate()) {
                       // Process data.
-                      print(accountName);
-                      print(accountColor);
-                      Provider.of<StoreModel>(context, listen: false).addAccount(accountName, accountColor);
+                      print(name);
+                      print(color);
+                      Provider.of<StoreModel>(context, listen: false).addAccount(name, color);
                     }
                   },
                   child: Text('Submit'),

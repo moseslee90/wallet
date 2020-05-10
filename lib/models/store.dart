@@ -77,8 +77,8 @@ class StoreModel extends ChangeNotifier {
     }
   }
 
-  addCategory(String name) async {
-    var category = CategoryModel(null, name);
+  addCategory(String name, int color) async {
+    var category = CategoryModel(null, name, color);
     try {
       final id = await dbInstance.insertCategory(category);
       category.id = id;

@@ -1,13 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wallet/common/scaffold.dart';
 import 'package:wallet/models/store.dart';
+import '../common/constants.dart';
 
-class _CategoryFormState extends State<CategoryForm> {
+class AddCategoryPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MyScaffold(
+      body: _CategoryForm(),
+    );
+  }
+}
+
+class _CategoryFormState extends State<_CategoryForm> {
   final _formKey = GlobalKey<FormState>();
-  String categoryName = '';
+  static String defaultColor = 'Choose a Color';
+  String name = '';
+  int color = 0;
+  String colorName = defaultColor;
 
   @override
   Widget build(BuildContext context) {
+    List<DropdownMenuItem> dropdownColors = [
+      DropdownMenuItem(
+          value: defaultColor,
+          child: Text(defaultColor, style: TextStyle(color: Colors.grey)))
+    ];
+    dropdownColors
+        .addAll(<String>[BLUE_STRING, GREEN_STRING, INDIGO_STRING, TEAL_STRING, ORANGE_STRING].map((String value) {
+      return DropdownMenuItem(
+        value: value,
+        child: Text(value),
+      );
+    }));
     return Form(
         key: _formKey,
         child: Column(
@@ -24,7 +51,26 @@ class _CategoryFormState extends State<CategoryForm> {
                   return null;
                 },
                 onChanged: (value) {
-                  categoryName = value;
+                  name = value;
+                },
+              ),
+              DropdownButtonFormField(
+                value: colorName,
+                decoration: const InputDecoration(
+                  hintText: 'Select Color',
+                ),
+                validator: (value) {
+                  if (value == defaultColor) {
+                    return 'Please Choose a Color';
+                  }
+                  return null;
+                },
+                items: dropdownColors,
+                onChanged: (value) {
+                  color = colors[value];
+                  setState(() {
+                    colorName = value;
+                  });
                 },
               ),
               Padding(
@@ -35,9 +81,9 @@ class _CategoryFormState extends State<CategoryForm> {
                     // the form is invalid.
                     if (_formKey.currentState.validate()) {
                       // Process data.
-                      print(categoryName);
+                      print(name);
                       Provider.of<StoreModel>(context, listen: false)
-                          .addCategory(categoryName);
+                          .addCategory(name, color);
                     }
                   },
                   child: Text('Submit'),
@@ -47,8 +93,8 @@ class _CategoryFormState extends State<CategoryForm> {
   }
 }
 
-class CategoryForm extends StatefulWidget {
-  CategoryForm({Key key}) : super(key: key);
+class _CategoryForm extends StatefulWidget {
+  _CategoryForm({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
