@@ -5,8 +5,6 @@ import 'package:wallet/common/scaffold.dart';
 import 'package:wallet/models/account.dart';
 import 'package:wallet/models/accounts.dart';
 import 'package:wallet/models/store.dart';
-import 'package:provider/provider.dart';
-import 'package:wallet/models/store.dart';
 
 class AccountSettingsPage extends StatelessWidget {
   @override
@@ -28,48 +26,55 @@ class _AccountsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    AccountsModel _accounts = Provider.of<StoreModel>(context).accounts;
-    List<AccountModel> _accountModels = [];
+    StoreModel store = Provider.of<StoreModel>(context);
+    AccountsModel _accounts = store.accounts;
+    List<AccountModel> _accountModelList = [];
     _accounts.accounts.forEach((_, account) {
-      _accountModels.add(account);
+      _accountModelList.add(account);
     });
-    _accountModels.sort((a, b) => a.position - b.position);
-    List<_AccountRow> _accountRows =
-        _accountModels.map((account) => _AccountRow(account)).toList();
+    _accountModelList.sort((a, b) => a.position - b.position);
+    List<_AccountRow> _accountRows = [];
+    for(int i = 0; i < _accountModelList.length; i++) {
+      print('printing key');
+      print(i);
+      _accountRows.add(_AccountRow(_accountModelList[i], ValueKey(i.toString())));
+    }
 
-    return ListView(
+    return ReorderableListView(
       children: _accountRows,
+      onReorder: (oldIndex, newIndex) {
+        AccountModel old = _accountModelList[oldIndex];
+        if (oldIndex > newIndex) {
+          for (int i = oldIndex; i > newIndex; i--) {
+            _accountModelList[i] = _accountModelList[i - 1];
+          }
+          _accountModelList[newIndex] = old;
+        } else {
+          for (int i = oldIndex; i < newIndex - 1; i++) {
+            _accountModelList[i] = _accountModelList[i + 1];
+          }
+          _accountModelList[newIndex - 1] = old;
+        }
+        store.updateAccountPositions(_accountModelList);
+      },
     );
   }
 }
 
 class _AccountRow extends StatelessWidget {
   final AccountModel account;
+  final Key key;
 
-  _AccountRow(this.account);
+  _AccountRow(this.account, this.key): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          _AccountIcon(account.color),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(left: 5.0),
-              child: _AccountDetails(account.name),
-            ),
-          ),
-          Container(
-            height: 25,
-            width: 25,
-            child: Icon(Icons.drag_handle),
-          ),
-        ],
-      ),
+    return ListTile(
+      key: key,
+      leading: _AccountIcon(account.color),
+      title: Text(account.name),
+      trailing: _DragHandle(),
     );
   }
 }
@@ -93,20 +98,14 @@ class _AccountIcon extends StatelessWidget {
   }
 }
 
-class _AccountDetails extends StatelessWidget {
-  final String name;
-
-  _AccountDetails(this.name);
-
+class _DragHandle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(name),
-        Text('some other stuff'),
-      ],
+    return Container(
+      height: 25,
+      width: 25,
+      child: Icon(Icons.drag_handle),
     );
   }
 }

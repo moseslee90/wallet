@@ -89,4 +89,17 @@ class StoreModel extends ChangeNotifier {
       print(e);
     }
   }
+
+  updateAccountPositions(List<AccountModel> accountModelList) async {
+    for(var i = 0; i < accountModelList.length; i++) {
+      AccountModel account = accountModelList[i];
+      account.position = i;
+      try {
+        await dbInstance.updateAccount(account);
+      } catch (e) {
+        print(e);
+      }
+    }
+    await _getAccountsFromDb();
+  }
 }

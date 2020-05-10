@@ -9,18 +9,20 @@ import 'package:wallet/models/item.dart';
 
 // singleton class to manage the database
 class DatabaseHelper {
-
   // This is the actual database filename that is saved in the docs directory.
   static final _databaseName = "MyDatabase.db";
+
   // Increment this version when you need to change the schema.
   static final _databaseVersion = 2;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
+
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
   // Only allow a single open connection to the database.
   static Database _database;
+
   Future<Database> get database async {
     if (_database != null) return _database;
     _database = await _initDatabase();
@@ -34,13 +36,12 @@ class DatabaseHelper {
     String path = join(documentsDirectory.path, _databaseName);
     // Open the database. Can also add an onUpdate callback parameter.
     return await openDatabase(path,
-        version: _databaseVersion,
-        onCreate: _onCreate);
+        version: _databaseVersion, onCreate: _onCreate);
   }
 
   // SQL string to create the database
   Future _onCreate(Database db, int version) async {
-     await db.transaction((txn) async {
+    await db.transaction((txn) async {
       await txn.execute('''
               CREATE TABLE IF NOT EXISTS $TABLE_ACCOUNTS (
                 $COLUMN_ID INTEGER PRIMARY KEY,
@@ -102,6 +103,12 @@ class DatabaseHelper {
     return {};
   }
 
+  Future<int> updateAccount(AccountModel account) async {
+    Database db = await database;
+    return await db.update(TABLE_ACCOUNTS, account.toMap(),
+        where: '$COLUMN_ID = ?', whereArgs: [account.id]);
+  }
+
   Future<int> insertItem(ItemModel item) async {
     Database db = await database;
     int id = await db.insert(TABLE_ITEMS, item.toMap());
@@ -111,8 +118,14 @@ class DatabaseHelper {
   Future<Map<int, ItemModel>> queryItems() async {
     Database db = await database;
     Map<int, ItemModel> itemModelMap = {};
-    List<Map> maps = await db.query(TABLE_ITEMS,
-        columns: [COLUMN_ID, COLUMN_NAME, COLUMN_AMOUNT, COLUMN_ACCOUNT_ID, COLUMN_CATEGORY_ID, COLUMN_TRANSACTION_TYPE]);
+    List<Map> maps = await db.query(TABLE_ITEMS, columns: [
+      COLUMN_ID,
+      COLUMN_NAME,
+      COLUMN_AMOUNT,
+      COLUMN_ACCOUNT_ID,
+      COLUMN_CATEGORY_ID,
+      COLUMN_TRANSACTION_TYPE
+    ]);
     maps.forEach((map) {
       ItemModel item = ItemModel.fromMap(map);
       itemModelMap[item.id] = item;
@@ -132,8 +145,8 @@ class DatabaseHelper {
   Future<Map<int, ItemModel>> queryCategory() async {
     Database db = await database;
     Map<int, ItemModel> itemModelMap = {};
-    List<Map> maps = await db.query(TABLE_CATEGORY,
-        columns: [COLUMN_ID, COLUMN_NAME]);
+    List<Map> maps =
+        await db.query(TABLE_CATEGORY, columns: [COLUMN_ID, COLUMN_NAME]);
     maps.forEach((map) {
       ItemModel item = ItemModel.fromMap(map);
       itemModelMap[item.id] = item;

@@ -21,6 +21,7 @@ class AccountModel {
     var map = <String, dynamic>{
       constants.COLUMN_COLOR: color,
       constants.COLUMN_NAME: name,
+      constants.COLUMN_POSITION: position,
     };
     if (id != null) {
       map[constants.COLUMN_ID] = id;

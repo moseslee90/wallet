@@ -70,6 +70,7 @@ class AccountIconsGrid extends StatelessWidget {
   List<AccountIcon> _accountIcons() {
     List<AccountIcon> result = [];
     accounts.accounts.forEach((_, value) => result.add(AccountIcon(value)));
+    result.sort((a, b) => a.account.position - b.account.position);
     return result;
   }
 
