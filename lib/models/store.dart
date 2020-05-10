@@ -15,7 +15,7 @@ class StoreModel extends ChangeNotifier {
   final dbInstance = databaseHelper.DatabaseHelper.instance;
 
   ItemsModel items = ItemsModel({});
-  AccountsModel accounts = AccountsModel();
+  AccountsModel accounts = AccountsModel({});
   CategoriesModel categories = CategoriesModel({});
 
 

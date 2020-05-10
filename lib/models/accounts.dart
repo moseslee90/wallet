@@ -10,7 +10,7 @@ class AccountsModel {
 
   Map<int, AccountModel> _accounts = {};
   
-  AccountsModel();
+  AccountsModel(this._accounts);
 
   Map<int, AccountModel> get accounts => _accounts;
   set accounts(Map<int, AccountModel> value) {

@@ -3,8 +3,9 @@ import 'package:wallet/common/appbar.dart';
 
 class MyScaffold extends StatelessWidget {
   final Widget body;
+  final FloatingActionButton floatingActionButton;
 
-  MyScaffold({this.body});
+  MyScaffold({this.body, this.floatingActionButton});
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,7 @@ class MyScaffold extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(),
       body: body,
+      floatingActionButton: floatingActionButton,
     );
   }
 }

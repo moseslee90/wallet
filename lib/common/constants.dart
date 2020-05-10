@@ -40,6 +40,7 @@ const Map<int, String> TRANSACTION_TYPE = {
 const String TABLE_ACCOUNTS = 'accounts';
 const String COLUMN_ID = 'id';
 const String COLUMN_COLOR = 'color';
+const String COLUMN_POSITION = 'position';
 
 const String TABLE_ITEMS = 'items';
 const String COLUMN_AMOUNT = 'amount';

@@ -13,7 +13,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static final _databaseName = "MyDatabase.db";
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 1;
+  static final _databaseVersion = 2;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -40,19 +40,21 @@ class DatabaseHelper {
 
   // SQL string to create the database
   Future _onCreate(Database db, int version) async {
-    await db.execute('''
+     await db.transaction((txn) async {
+      await txn.execute('''
               CREATE TABLE IF NOT EXISTS $TABLE_ACCOUNTS (
                 $COLUMN_ID INTEGER PRIMARY KEY,
                 $COLUMN_NAME TEXT NOT NULL,
-                $COLUMN_COLOR INTEGER NOT NULL
+                $COLUMN_COLOR INTEGER NOT NULL,
+                $COLUMN_POSITION INTEGER
               );
               ''');
-    await db.execute('''
+      await txn.execute('''
               CREATE TABLE IF NOT EXISTS $TABLE_CATEGORY (
                 $COLUMN_NAME TINYTEXT NOT NULL
               );
               ''');
-    await db.execute('''
+      await txn.execute('''
               CREATE TABLE IF NOT EXISTS $TABLE_ITEMS (
                 $COLUMN_ID INTEGER PRIMARY KEY,
                 $COLUMN_NAME TEXT NOT NULL,
@@ -62,6 +64,7 @@ class DatabaseHelper {
                 $COLUMN_CATEGORY_ID INTEGER NOT NULL
               );
               ''');
+    });
   }
 
   // Database helper methods:
@@ -75,7 +78,7 @@ class DatabaseHelper {
   Future<AccountModel> queryAccount(int id) async {
     Database db = await database;
     List<Map> accountMaps = await db.query(TABLE_ACCOUNTS,
-        columns: [COLUMN_ID, COLUMN_NAME, COLUMN_COLOR],
+        columns: [COLUMN_ID, COLUMN_NAME, COLUMN_COLOR, COLUMN_POSITION],
         where: '$COLUMN_ID = ?',
         whereArgs: [id]);
     if (accountMaps.length > 0) {
@@ -88,7 +91,7 @@ class DatabaseHelper {
     Database db = await database;
     Map<int, AccountModel> accountModelMap = {};
     List<Map> maps = await db.query(TABLE_ACCOUNTS,
-        columns: [COLUMN_ID, COLUMN_NAME, COLUMN_COLOR]);
+        columns: [COLUMN_ID, COLUMN_NAME, COLUMN_COLOR, COLUMN_POSITION]);
     maps.forEach((map) {
       AccountModel account = AccountModel.fromMap(map);
       accountModelMap[account.id] = account;

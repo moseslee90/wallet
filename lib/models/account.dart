@@ -5,7 +5,8 @@ class AccountModel {
   int id;
   String name;
   int color;
-  int total; // total is only updated with items
+  int total = 0; // total is only updated with items
+  int position = 0; // initialise as 0
 
   AccountModel(this.id, this.name, this.color);
 
@@ -13,6 +14,7 @@ class AccountModel {
     id = map[constants.COLUMN_ID];
     name = map[constants.COLUMN_NAME];
     color = map[constants.COLUMN_COLOR];
+    position = map[constants.COLUMN_POSITION] ?? 0;
   }
 
   Map<String, dynamic> toMap() {
