@@ -4,13 +4,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallet/common/constants.dart';
-import 'package:wallet/screens/home.dart';
-import 'package:wallet/screens/account_add.dart';
-import 'package:wallet/screens/account_settings.dart';
-import 'package:wallet/models/store.dart';
 import 'package:google_fonts/google_fonts.dart';
-import './screens/category_add.dart';
+import 'common/constants.dart';
+import 'models/store.dart';
+import 'screens/home.dart';
+import 'screens/account_add.dart';
+import 'screens/account_settings.dart';
+import 'screens/category_add.dart';
+import 'screens/item_add.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           PATH_ACCOUNT_ADD: (context) => AddAccountPage(),
           PATH_ACCOUNT_SETTINGS: (context) => AccountSettingsPage(),
           PATH_CATEGORY_ADD: (context) => AddCategoryPage(),
+          PATH_ITEM_ADD: (context) => AddItemPage(),
         },
       ),
     );

@@ -16,13 +16,15 @@ const String INDIGO_STRING = 'indigo';
 const String TEAL_STRING = 'teal';
 const String ORANGE_STRING = 'orange';
 
-const Map<String, int> colors = {
+const Map<String, int> COLORS_MAP = {
   BLUE_STRING: BLUE_INT,
   GREEN_STRING: GREEN_INT,
   INDIGO_STRING: INDIGO_INT,
   TEAL_STRING: TEAL_INT,
   ORANGE_STRING: ORANGE_INT,
 };
+
+final List<String> colorsListString = COLORS_MAP.keys.toList();
 
 const String EXPENSE_STRING = 'expense';
 const String INCOME_STRING = 'income';
@@ -43,6 +45,7 @@ const String TABLE_ACCOUNTS = 'accounts';
 const String COLUMN_ID = 'id';
 const String COLUMN_COLOR = 'color';
 const String COLUMN_POSITION = 'position';
+const String COLUMN_ACCOUNT_TRANSFER_TO_ID = 'account_transfer_to_id';
 
 const String TABLE_ITEMS = 'items';
 const String COLUMN_AMOUNT = 'amount';
@@ -50,7 +53,7 @@ const String COLUMN_ACCOUNT_ID = 'account_id';
 const String COLUMN_CATEGORY_ID = 'category_id';
 const String COLUMN_TRANSACTION_TYPE = 'transaction_type';
 
-const String TABLE_CATEGORY = 'category';
+const String TABLE_CATEGORY = 'categories';
 const String COLUMN_NAME = 'name';
 
 // paths

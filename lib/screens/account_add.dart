@@ -72,7 +72,7 @@ class _AccountInputState extends State<AccountInput> {
                 },
                 items: dropdownColors,
                 onChanged: (value) {
-                  color = colors[value];
+                  color = COLORS_MAP[value];
                   setState(() {
                     colorName = value;
                   });

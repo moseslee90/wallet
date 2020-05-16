@@ -20,6 +20,10 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed((context), PATH_ITEM_ADD),
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

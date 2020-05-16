@@ -63,7 +63,8 @@ class DatabaseHelper {
                 $COLUMN_AMOUNT INTEGER NOT NULL,
                 $COLUMN_TRANSACTION_TYPE BOOLEAN NOT NULL,
                 $COLUMN_ACCOUNT_ID INTEGER NOT NULL,
-                $COLUMN_CATEGORY_ID INTEGER NOT NULL
+                $COLUMN_CATEGORY_ID INTEGER,
+                $COLUMN_ACCOUNT_TRANSFER_TO_ID INTEGER
               );
               ''');
     });
@@ -125,7 +126,8 @@ class DatabaseHelper {
       COLUMN_AMOUNT,
       COLUMN_ACCOUNT_ID,
       COLUMN_CATEGORY_ID,
-      COLUMN_TRANSACTION_TYPE
+      COLUMN_TRANSACTION_TYPE,
+      COLUMN_ACCOUNT_TRANSFER_TO_ID
     ]);
     maps.forEach((map) {
       ItemModel item = ItemModel.fromMap(map);
@@ -157,8 +159,4 @@ class DatabaseHelper {
     }
     return {};
   }
-
-// TODO: queryAllWords()
-// TODO: delete(int id)
-// TODO: update(Word word)
 }

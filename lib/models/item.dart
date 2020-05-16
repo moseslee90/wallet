@@ -8,8 +8,9 @@ class ItemModel {
   int accountId;
   int categoryId;
   int transactionType;
+  int accountTransferToId;
 
-  ItemModel({this.id, this.name, this.amount, this.accountId, this.categoryId, this.transactionType});
+  ItemModel({this.id, this.name, this.amount, this.accountId, this.categoryId, this.transactionType, this.accountTransferToId});
 
   ItemModel.fromMap(Map<String, dynamic> map) {
     id = map[constants.COLUMN_ID];
@@ -17,6 +18,7 @@ class ItemModel {
     accountId = map[constants.COLUMN_ACCOUNT_ID];
     categoryId = map[constants.COLUMN_CATEGORY_ID];
     transactionType = map[constants.COLUMN_TRANSACTION_TYPE];
+    accountTransferToId = map[constants.COLUMN_ACCOUNT_TRANSFER_TO_ID];
   }
 
   Map<String, dynamic> toMap() {
@@ -25,6 +27,7 @@ class ItemModel {
       constants.COLUMN_ACCOUNT_ID: accountId,
       constants.COLUMN_CATEGORY_ID: categoryId,
       constants.COLUMN_TRANSACTION_TYPE: transactionType,
+      constants.COLUMN_ACCOUNT_TRANSFER_TO_ID: accountTransferToId,
     };
     if (id != null) {
       map[constants.COLUMN_ID] = id;

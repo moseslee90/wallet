@@ -29,7 +29,7 @@ class _CategoryFormState extends State<_CategoryForm> {
           child: Text(defaultColor, style: TextStyle(color: Colors.grey)))
     ];
     dropdownColors
-        .addAll(<String>[BLUE_STRING, GREEN_STRING, INDIGO_STRING, TEAL_STRING, ORANGE_STRING].map((String value) {
+        .addAll(colorsListString.map((String value) {
       return DropdownMenuItem(
         value: value,
         child: Text(value),
@@ -67,7 +67,7 @@ class _CategoryFormState extends State<_CategoryForm> {
                 },
                 items: dropdownColors,
                 onChanged: (value) {
-                  color = colors[value];
+                  color = COLORS_MAP[value];
                   setState(() {
                     colorName = value;
                   });

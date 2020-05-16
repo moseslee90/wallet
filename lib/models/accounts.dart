@@ -8,18 +8,13 @@ import 'dart:math' as Math;
 class AccountsModel {
   /// Internal, private state of accounts
 
-  Map<int, AccountModel> _accounts = {};
+  Map<int, AccountModel> accounts = {};
   
-  AccountsModel(this._accounts);
+  AccountsModel(this.accounts);
 
-  Map<int, AccountModel> get accounts => _accounts;
-  set accounts(Map<int, AccountModel> value) {
-    this._accounts = value;
-  }
-
-  AccountModel getAccountById(int id) => _accounts[id];
+  AccountModel getAccountById(int id) => accounts[id];
 
   addAccount(AccountModel account) {
-    _accounts[account.id] = account;
+    accounts[account.id] = account;
   }
 }
