@@ -11,20 +11,22 @@ class ExpenseForm extends StatelessWidget {
   final int accountId;
   final int categoryId;
   final int transactionType = EXPENSE_INT;
+  final List<RadioModel> transactionTypes;
   final Function onNameChanged;
   final Function onAmountChanged;
   final Function onAccountIdChanged;
   final Function onCategoryIdChanged;
 
   ExpenseForm(
-      this.name,
+      {this.name,
       this.amount,
       this.accountId,
       this.categoryId,
+      this.transactionTypes,
       this.onNameChanged,
       this.onAmountChanged,
       this.onAccountIdChanged,
-      this.onCategoryIdChanged);
+      this.onCategoryIdChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class ExpenseForm extends StatelessWidget {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+            CustomRadio(inputData: transactionTypes),
             TextFormField(
               decoration: const InputDecoration(
                 hintText: 'Enter Item Name',

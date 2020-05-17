@@ -1,31 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CustomRadio extends StatefulWidget {
+class CustomRadio extends StatelessWidget {
   final List<RadioModel> inputData;
+
   CustomRadio({this.inputData});
-  @override
-  createState() {
-    return new CustomRadioState(inputData);
-  }
-}
-
-class CustomRadioState extends State<CustomRadio> {
-  List<RadioModel> inputData;
-  CustomRadioState(this.inputData);
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (inputData ?? true) {
-      inputData = new List<RadioModel>();
-      inputData.add(new RadioModel(isSelected: false, text: 'Expense'));
-      inputData.add(new RadioModel(isSelected: false, text: 'Income'));
-      inputData.add(new RadioModel(isSelected: false, text: 'Transfer', callback: (foo){
-        print(foo);
-      }, value: 'bar'));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,31 +13,19 @@ class CustomRadioState extends State<CustomRadio> {
       buttons.add(FlatButton(
 //          splashColor: Colors.blueAccent,
         onPressed: () {
-          this.setState(() {
-            inputData.forEach((element) => element.isSelected = false);
-            inputData[i].isSelected = true;
-          });
-          if(inputData[i].callback != null) {
+          if (inputData[i].callback != null) {
             print('call back is not null');
-            inputData[i].callback(inputData[i].value);
+            inputData[i].callback();
           }
         },
         child: RadioItem(inputData[i]),
       ));
     }
 
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("ListItem"),
-      ),
-      body: Container(
-        margin: EdgeInsets.only(top: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
-          children: buttons,
-        ),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      children: buttons,
     );
   }
 }
@@ -96,7 +62,7 @@ class RadioModel {
   bool isSelected;
   final String text;
   final dynamic value;
-  final Function callback;
+  Function callback;
 
   RadioModel({this.isSelected, this.text, this.value, this.callback});
 }

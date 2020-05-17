@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
           PATH_ACCOUNT_ADD: (context) => AddAccountPage(),
           PATH_ACCOUNT_SETTINGS: (context) => AccountSettingsPage(),
           PATH_CATEGORY_ADD: (context) => AddCategoryPage(),
-//          PATH_ITEM_ADD: (context) => AddItemPage(),
-          PATH_ITEM_ADD: (context) => CustomRadio(),
+          PATH_ITEM_ADD: (context) => AddItemPage(),
+//          PATH_ITEM_ADD: (context) => CustomRadio(),
         },
       ),
     );
