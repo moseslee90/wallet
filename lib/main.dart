@@ -12,6 +12,7 @@ import 'screens/account_add.dart';
 import 'screens/account_settings.dart';
 import 'screens/category_add.dart';
 import 'screens/item_add.dart';
+import 'screens/item_add/transaction_type_radio.dart';
 
 void main() => runApp(MyApp());
 
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
           PATH_ACCOUNT_ADD: (context) => AddAccountPage(),
           PATH_ACCOUNT_SETTINGS: (context) => AccountSettingsPage(),
           PATH_CATEGORY_ADD: (context) => AddCategoryPage(),
-          PATH_ITEM_ADD: (context) => AddItemPage(),
+//          PATH_ITEM_ADD: (context) => AddItemPage(),
+          PATH_ITEM_ADD: (context) => CustomRadio(),
         },
       ),
     );
