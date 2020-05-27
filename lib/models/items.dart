@@ -22,8 +22,8 @@ class ItemsModel {
     return result;
   }
 
-  int getTotalForAccount(int accountId) {
-    int result = 0;
+  double getTotalForAccount(int accountId) {
+    double result = 0;
     items.forEach((_, value) {
       result += value.amount;
     });

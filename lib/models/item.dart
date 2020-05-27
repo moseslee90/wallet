@@ -4,7 +4,7 @@ import 'package:wallet/common/constants.dart' as constants;
 class ItemModel {
   int id;
   String name;
-  int amount;
+  double amount;
   int accountId;
   int categoryId;
   int transactionType;
@@ -14,6 +14,7 @@ class ItemModel {
 
   ItemModel.fromMap(Map<String, dynamic> map) {
     id = map[constants.COLUMN_ID];
+    name = map[constants.COLUMN_NAME];
     amount = map[constants.COLUMN_AMOUNT];
     accountId = map[constants.COLUMN_ACCOUNT_ID];
     categoryId = map[constants.COLUMN_CATEGORY_ID];
@@ -23,6 +24,7 @@ class ItemModel {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
+      constants.COLUMN_NAME: name,
       constants.COLUMN_AMOUNT: amount,
       constants.COLUMN_ACCOUNT_ID: accountId,
       constants.COLUMN_CATEGORY_ID: categoryId,

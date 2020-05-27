@@ -19,9 +19,9 @@ class AddItemPage extends StatefulWidget {
 class _AddItemPageState extends State<AddItemPage> {
   final _formKey = GlobalKey<FormState>();
   String name = '';
-  int amount = 0;
+  double amount = 0;
   int accountId;
-  int transferAccountId;
+  int accountTransferToId;
   int categoryId;
   int transactionType = EXPENSE_INT;
   List<RadioModel> transactionRadios;
@@ -33,13 +33,13 @@ class _AddItemPageState extends State<AddItemPage> {
   }
 
   onAmountChanged(value) {
-    amount = int.tryParse(value);
+    amount = double.tryParse(value);
   }
 
   onAccountIdChanged(value) {
     this.setState(() {
-      if (value == transferAccountId) {
-        transferAccountId = null;
+      if (value == accountTransferToId) {
+        accountTransferToId = null;
       }
       accountId = value;
     });
@@ -53,14 +53,8 @@ class _AddItemPageState extends State<AddItemPage> {
 
   onTransferAccountIdChanged(value) {
     this.setState(() {
-      transferAccountId = value;
+      accountTransferToId = value;
     });
-  }
-
-  onSubmit() {
-    print('name: $name');
-    print(
-        'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType, transferAccount: $transferAccountId');
   }
 
   void initState() {
@@ -118,7 +112,7 @@ class _AddItemPageState extends State<AddItemPage> {
         .toList();
     Widget transferToAccountDropdown = transactionType == TRANSFER_INT
         ? DropdownButtonFormField(
-            value: transferAccountId,
+            value: accountTransferToId,
             decoration: const InputDecoration(
               hintText: 'Select Transfer Account',
             ),
@@ -161,7 +155,7 @@ class _AddItemPageState extends State<AddItemPage> {
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter some text';
-                  } else if (int.tryParse(value) == null) {
+                  } else if (double.tryParse(value) == null) {
                     return 'Please enter a number';
                   }
                   return null;
@@ -204,7 +198,10 @@ class _AddItemPageState extends State<AddItemPage> {
                     // Validate will return true if the form is valid, or false if
                     // the form is invalid.
                     if (_formKey.currentState.validate()) {
-                      onSubmit();
+                      print('name: $name');
+                      print(
+                          'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType, transferAccount: $accountTransferToId');
+                      store.addItem(name, amount, accountId, categoryId, transactionType, accountTransferToId);
                     }
                   },
                   child: Text('Submit'),

@@ -18,7 +18,6 @@ class StoreModel extends ChangeNotifier {
   AccountsModel accounts = AccountsModel({});
   CategoriesModel categories = CategoriesModel({});
 
-
   StoreModel() {
     _getStoreFromDb();
   }
@@ -74,8 +73,15 @@ class StoreModel extends ChangeNotifier {
     }
   }
 
-  addItem(String name, int amount, int accountId, int categoryId, int transactionType) async {
-    var item = ItemModel(name: name, amount: amount, accountId: accountId, categoryId: categoryId, transactionType: transactionType);
+  addItem(String name, double amount, int accountId, int categoryId,
+      int transactionType, int accountTransferToId) async {
+    var item = ItemModel(
+        name: name,
+        amount: amount,
+        accountId: accountId,
+        categoryId: categoryId,
+        transactionType: transactionType,
+        accountTransferToId: accountTransferToId);
     try {
       final id = await dbInstance.insertItem(item);
       item.id = id;
@@ -101,7 +107,7 @@ class StoreModel extends ChangeNotifier {
   }
 
   updateAccountPositions(List<AccountModel> accountModelList) async {
-    for(var i = 0; i < accountModelList.length; i++) {
+    for (var i = 0; i < accountModelList.length; i++) {
       AccountModel account = accountModelList[i];
       account.position = i;
       try {

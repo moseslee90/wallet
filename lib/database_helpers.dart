@@ -61,7 +61,7 @@ class DatabaseHelper {
               CREATE TABLE IF NOT EXISTS $TABLE_ITEMS (
                 $COLUMN_ID INTEGER PRIMARY KEY,
                 $COLUMN_NAME TEXT NOT NULL,
-                $COLUMN_AMOUNT INTEGER NOT NULL,
+                $COLUMN_AMOUNT FLOAT NOT NULL,
                 $COLUMN_TRANSACTION_TYPE BOOLEAN NOT NULL,
                 $COLUMN_ACCOUNT_ID INTEGER NOT NULL,
                 $COLUMN_CATEGORY_ID INTEGER,

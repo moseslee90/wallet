@@ -5,7 +5,7 @@ class AccountModel {
   int id;
   String name;
   int color;
-  int total = 0; // total is only updated with items
+  double total = 0; // total is only updated with items
   int position = 0; // initialise as 0
 
   AccountModel(this.id, this.name, this.color);
