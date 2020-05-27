@@ -24,13 +24,16 @@ class ItemsModel {
 
   double getTotalForAccount(int accountId) {
     double result = 0;
-    items.forEach((_, value) {
-      result += value.amount;
+    items.forEach((_, item) {
+      if(item.accountId == accountId) {
+        result += item.amount;
+      }
     });
     return result;
   }
 
   addItem(ItemModel item) {
     items[item.id] = item;
+
   }
 }

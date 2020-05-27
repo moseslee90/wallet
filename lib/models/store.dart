@@ -40,10 +40,7 @@ class StoreModel extends ChangeNotifier {
   _getAccountsFromDb() async {
     try {
       accounts.accounts = await dbInstance.queryAccounts();
-      accounts.accounts.forEach((id, account) {
-        final total = items.getTotalForAccount(id);
-        account.total = total;
-      });
+      await updateTotalsForAccounts();
 
       notifyListeners();
     } catch (e) {
@@ -86,7 +83,7 @@ class StoreModel extends ChangeNotifier {
       final id = await dbInstance.insertItem(item);
       item.id = id;
       items.addItem(item);
-
+      await updateTotalsForAccounts();
       notifyListeners();
     } catch (e) {
       print(e);
@@ -117,5 +114,12 @@ class StoreModel extends ChangeNotifier {
       }
     }
     await _getAccountsFromDb();
+  }
+
+  updateTotalsForAccounts() async {
+    accounts.accounts.forEach((id, account) {
+      final total = items.getTotalForAccount(id);
+      account.total = total;
+    });
   }
 }
