@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet/common/scaffold.dart';
+import 'package:wallet/models/account.dart';
 import 'package:wallet/models/store.dart';
 import 'package:wallet/screens/item_add/transaction_type_radio.dart';
 import '../common/constants.dart';
@@ -20,6 +21,7 @@ class _AddItemPageState extends State<AddItemPage> {
   String name = '';
   int amount = 0;
   int accountId;
+  int transferAccountId;
   int categoryId;
   int transactionType = EXPENSE_INT;
   List<RadioModel> transactionRadios;
@@ -36,6 +38,9 @@ class _AddItemPageState extends State<AddItemPage> {
 
   onAccountIdChanged(value) {
     this.setState(() {
+      if (value == transferAccountId) {
+        transferAccountId = null;
+      }
       accountId = value;
     });
   }
@@ -46,10 +51,16 @@ class _AddItemPageState extends State<AddItemPage> {
     });
   }
 
+  onTransferAccountIdChanged(value) {
+    this.setState(() {
+      transferAccountId = value;
+    });
+  }
+
   onSubmit() {
     print('name: $name');
     print(
-        'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType');
+        'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType, transferAccount: $transferAccountId');
   }
 
   void initState() {
@@ -95,6 +106,32 @@ class _AddItemPageState extends State<AddItemPage> {
                   child: Text(_category.name),
                 ))
             .toList();
+    Map<int, AccountModel> transferAccounts = Map.from(store.accounts.accounts);
+    print(transferAccounts);
+    transferAccounts.remove(accountId);
+    print(transferAccounts);
+    List<DropdownMenuItem> dropdownTransferAccountIds = transferAccounts.values
+        .map((_account) => DropdownMenuItem(
+              value: _account.id,
+              child: Text(_account.name),
+            ))
+        .toList();
+    Widget transferToAccountDropdown = transactionType == TRANSFER_INT
+        ? DropdownButtonFormField(
+            value: transferAccountId,
+            decoration: const InputDecoration(
+              hintText: 'Select Transfer Account',
+            ),
+            validator: (value) {
+              if (value == null) {
+                return 'Please Choose an Account';
+              }
+              return null;
+            },
+            items: dropdownTransferAccountIds,
+            onChanged: onTransferAccountIdChanged,
+          )
+        : SizedBox.shrink();
 
     // TODO: implement build
     return MyScaffold(
@@ -145,6 +182,7 @@ class _AddItemPageState extends State<AddItemPage> {
                 items: dropdownAccountIds,
                 onChanged: onAccountIdChanged,
               ),
+              transferToAccountDropdown,
               DropdownButtonFormField(
                 value: categoryId,
                 decoration: const InputDecoration(
