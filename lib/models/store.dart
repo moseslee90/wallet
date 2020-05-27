@@ -26,6 +26,7 @@ class StoreModel extends ChangeNotifier {
   _getStoreFromDb() async {
     await _getItemsFromDb();
     await _getAccountsFromDb();
+    await _getCategoriesFromDb();
   }
 
   _getItemsFromDb() async {
@@ -45,6 +46,15 @@ class StoreModel extends ChangeNotifier {
         account.total = total;
       });
 
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  _getCategoriesFromDb() async {
+    try {
+      categories.categories = await dbInstance.queryCategories();
       notifyListeners();
     } catch (e) {
       print(e);

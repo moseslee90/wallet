@@ -52,6 +52,7 @@ class DatabaseHelper {
               ''');
       await txn.execute('''
               CREATE TABLE IF NOT EXISTS $TABLE_CATEGORY (
+                $COLUMN_ID INTEGER PRIMARY KEY,
                 $COLUMN_NAME TEXT NOT NULL,
                 $COLUMN_COLOR INTEGER NOT NULL
               );
@@ -156,6 +157,25 @@ class DatabaseHelper {
     });
     if (maps.length > 0) {
       return itemModelMap;
+    }
+    return {};
+  }
+
+  Future<Map<int, CategoryModel>> queryCategories() async {
+    print('getting categories from db');
+    Database db = await database;
+    Map<int, CategoryModel> categoryModelMap = {};
+    List<Map> maps = await db.query(TABLE_CATEGORY, columns: [
+      COLUMN_ID,
+      COLUMN_NAME,
+      COLUMN_COLOR
+    ]);
+    maps.forEach((map) {
+      CategoryModel category = CategoryModel.fromMap(map);
+      categoryModelMap[category.id] = category;
+    });
+    if (maps.length > 0) {
+      return categoryModelMap;
     }
     return {};
   }
