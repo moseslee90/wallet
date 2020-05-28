@@ -28,10 +28,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: WALLET,
         initialRoute: '/',
-        theme: ThemeData(
-            textTheme: GoogleFonts.robotoTextTheme(
-          Theme.of(context).textTheme,
-        )),
         routes: {
           PATH_HOME: (context) => HomePage(),
           PATH_ACCOUNT_ADD: (context) => AddAccountPage(),

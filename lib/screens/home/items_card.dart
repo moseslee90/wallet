@@ -6,6 +6,11 @@ import 'package:wallet/models/category.dart';
 import 'package:wallet/models/item.dart';
 import 'package:wallet/models/store.dart';
 
+const double firstRowFontSize = 16;
+const FontWeight firstRowFontWeight = FontWeight.w500;
+const double lightFontSize = 14;
+const FontWeight lightFontWeight = FontWeight.w300;
+
 class ItemsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -86,6 +91,7 @@ class _Center extends StatelessWidget {
   final String categoryName;
   final String accountName;
   final String itemName;
+  final TextStyle lightTextStyle = TextStyle(fontSize: lightFontSize, fontWeight: lightFontWeight);
 
   _Center(this.categoryName, this.accountName, this.itemName);
 
@@ -98,9 +104,9 @@ class _Center extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(categoryName),
-                Text(accountName),
-                Text(itemName),
+                Text(categoryName, style: TextStyle(fontSize: firstRowFontSize, fontWeight: firstRowFontWeight)),
+                Text(accountName, style: lightTextStyle),
+                Text(itemName, style: lightTextStyle),
               ],
             ))));
   }
@@ -121,7 +127,7 @@ class _End extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(amount),
+          Text(amount, style: TextStyle(fontSize: firstRowFontSize, fontWeight: firstRowFontWeight, color: Colors.redAccent),),
         ],
       ),
     );
