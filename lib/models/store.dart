@@ -6,6 +6,7 @@ import './accounts.dart';
 import './account.dart';
 import './category.dart';
 import './categories.dart';
+import '../common/constants.dart';
 
 import 'package:wallet/database_helpers.dart' as databaseHelper;
 
@@ -23,6 +24,7 @@ class StoreModel extends ChangeNotifier {
   }
 
   _getStoreFromDb() async {
+    await _loadSeedData();
     await _getItemsFromDb();
     await _getAccountsFromDb();
     await _getCategoriesFromDb();
@@ -121,5 +123,30 @@ class StoreModel extends ChangeNotifier {
       final total = items.getTotalForAccount(id);
       account.total = total;
     });
+  }
+
+  _loadSeedData() async {
+    try {
+      final CategoryModel foodCategory = CategoryModel(null, 'Food', ORANGE_INT);
+      await dbInstance.insertCategory(foodCategory);
+      final CategoryModel shoppingCategory = CategoryModel(null, 'Shopping', BLUE_INT);
+      await dbInstance.insertCategory(shoppingCategory);
+      final AccountModel grabAccount = AccountModel(null, 'Grab Pay', GREEN_INT);
+      await dbInstance.insertAccount(grabAccount);
+      final AccountModel bankAccount = AccountModel(null, 'Bank', BLUE_INT);
+      await dbInstance.insertAccount(bankAccount);
+      final AccountModel cashAccount = AccountModel(null, 'Cash', ORANGE_INT);
+      await dbInstance.insertAccount(cashAccount);
+      final ItemModel chickenRice = ItemModel(name: "Chicken Rice", amount: 3.6, accountId: 1, categoryId: 1, transactionType: EXPENSE_INT);
+      await dbInstance.insertItem(chickenRice);;
+      final ItemModel beefNoodles = ItemModel(name: "Beef Noodles", amount: 5, accountId: 2, categoryId: 1, transactionType: EXPENSE_INT);
+      await dbInstance.insertItem(beefNoodles);;
+      final ItemModel charSiewBao = ItemModel(name: "Char Siew Bao", amount: 0.8, accountId: 1, categoryId: 1, transactionType: EXPENSE_INT);
+      await dbInstance.insertItem(charSiewBao);;
+      final ItemModel keyboard = ItemModel(name: "Keyboard", amount: 50, accountId: 3, categoryId: 2, transactionType: EXPENSE_INT);
+      await dbInstance.insertItem(keyboard);
+    } catch (e) {
+      print(e);
+    }
   }
 }

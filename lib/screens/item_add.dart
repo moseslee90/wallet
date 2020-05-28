@@ -140,12 +140,6 @@ class _AddItemPageState extends State<AddItemPage> {
                 decoration: const InputDecoration(
                   hintText: 'Enter Item Name',
                 ),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
                 onChanged: onNameChanged,
               ),
               TextFormField(

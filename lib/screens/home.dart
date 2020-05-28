@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
       ),
       drawer: HomeDrawer(),
       body: Container(
+        color: Color(OFF_WHITE_INT),
         child: ListView(
           children: <Widget>[
             AccountsCard(),

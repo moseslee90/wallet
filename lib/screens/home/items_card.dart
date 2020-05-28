@@ -20,8 +20,12 @@ class ItemsCard extends StatelessWidget {
     Map<int, CategoryModel> categories = store.categories.categories;
     List<ItemModel> items = store.items.items.values.toList();
 
-    return Container(
-      child: _ItemList(items, accounts, categories),
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      child: Container(
+        padding: EdgeInsets.only(left: 4, top: 10, bottom: 10, right: 7),
+        child: _ItemList(items, accounts, categories),
+      ),
     );
   }
 }
@@ -125,7 +129,7 @@ class _End extends StatelessWidget {
       padding: EdgeInsets.all(5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Text(amount, style: TextStyle(fontSize: firstRowFontSize, fontWeight: firstRowFontWeight, color: Colors.redAccent),),
         ],

@@ -10,17 +10,20 @@ class AccountsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     var store = Provider.of<StoreModel>(context);
-    return Container(
-        child: Column(
-      children: <Widget>[
-        _Header(),
-        AccountIconsGrid(store.accounts),
-        GestureDetector(
-          onTap: () {},
-          child: Text('update accounts'),
-        ),
-      ],
-    ));
+    return Card(
+        margin: EdgeInsets.all(0),
+        child: Container(
+          padding: EdgeInsets.only(bottom: 15),
+            child: Column(
+          children: <Widget>[
+            _Header(),
+            AccountIconsGrid(store.accounts),
+            GestureDetector(
+              onTap: () {},
+              child: Text('update accounts'),
+            ),
+          ],
+        )));
   }
 }
 
@@ -120,7 +123,10 @@ class AccountIcon extends StatelessWidget {
                       fontSize: 12.0,
                     ),
                   ),
-                  Text(account.totalToString() != null ? account.totalToString() : '',
+                  Text(
+                      account.totalToString() != null
+                          ? account.totalToString()
+                          : '',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

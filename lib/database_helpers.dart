@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -60,7 +61,7 @@ class DatabaseHelper {
       await txn.execute('''
               CREATE TABLE IF NOT EXISTS $TABLE_ITEMS (
                 $COLUMN_ID INTEGER PRIMARY KEY,
-                $COLUMN_NAME TEXT NOT NULL,
+                $COLUMN_NAME TEXT,
                 $COLUMN_AMOUNT FLOAT NOT NULL,
                 $COLUMN_TRANSACTION_TYPE BOOLEAN NOT NULL,
                 $COLUMN_ACCOUNT_ID INTEGER NOT NULL,

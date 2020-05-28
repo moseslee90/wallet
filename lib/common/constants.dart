@@ -9,12 +9,14 @@ const int GREEN_INT = 0xFF4CAF50;
 const int INDIGO_INT = 0xFF5C6BC0;
 const int TEAL_INT = 0xFF4DB6AC;
 const int ORANGE_INT = 0xFFFFB74D;
+const int OFF_WHITE_INT = 0xFFf5f5f5;
 
 const String BLUE_STRING = 'blue';
 const String GREEN_STRING = 'green';
 const String INDIGO_STRING = 'indigo';
 const String TEAL_STRING = 'teal';
 const String ORANGE_STRING = 'orange';
+const String OFF_WHITE_STRING = 'off_white';
 
 const Map<String, int> COLORS_MAP = {
   BLUE_STRING: BLUE_INT,
