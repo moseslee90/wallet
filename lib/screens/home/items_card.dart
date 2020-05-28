@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet/common/constants.dart';
 import 'package:wallet/models/account.dart';
+import 'package:wallet/models/category.dart';
 import 'package:wallet/models/item.dart';
 import 'package:wallet/models/store.dart';
 
@@ -9,50 +10,120 @@ class ItemsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    var _store = Provider.of<StoreModel>(context);
-    Map<int, AccountModel> _accounts = _store.accounts.accounts;
-    List<ItemModel> _items = _store.items.items.values.toList();
+    var store = Provider.of<StoreModel>(context);
+    Map<int, AccountModel> accounts = store.accounts.accounts;
+    Map<int, CategoryModel> categories = store.categories.categories;
+    List<ItemModel> items = store.items.items.values.toList();
+
     return Container(
-        child: _ItemList(_items, _accounts),
+      child: _ItemList(items, accounts, categories),
     );
   }
 }
 
 class _ItemList extends StatelessWidget {
-  final List<ItemModel> _items;
-  final Map<int, AccountModel> _accounts;
-  _ItemList(this._items, this._accounts);
+  final List<ItemModel> items;
+  final Map<int, AccountModel> accounts;
+  final Map<int, CategoryModel> categories;
+
+  _ItemList(this.items, this.accounts, this.categories);
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _itemList = [];
-    for (var _item in _items) {
-      final _accountName = _accounts[_item.accountId].name;
-      _itemList.add(_ItemRow(_item, _accountName));
+    List<Widget> itemList = [];
+
+    for (var item in items) {
+      final _accountName = accounts[item.accountId].name;
+      final _categoryName = categories[item.categoryId].name;
+      itemList.add(_ItemRow(item, _accountName, _categoryName));
     }
-    // TODO: implement build
+
     return Column(
-      children: _itemList,
+      children: itemList,
     );
   }
 }
 
 class _ItemRow extends StatelessWidget {
-  final ItemModel _item;
-  final String _accountName;
-  _ItemRow(this._item, this._accountName);
+  final ItemModel item;
+  final String accountName;
+  final String categoryName;
+
+  _ItemRow(this.item, this.accountName, this.categoryName);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    final String _itemName = _item.name;
-    final String _amount = _item.amount.toString();
+    final String _itemName = item.name;
+    final String _amount = item.amount.toString();
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(_accountName),
-        Text(_itemName),
-        Text(_amount),
+        _Icon(),
+        _Center(categoryName, accountName, _itemName),
+        _End(_amount),
       ],
+    );
+  }
+}
+
+class _Icon extends StatelessWidget {
+  // TODO - _Icon should have a constructor that takes in an IconID that category uses
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(5.0),
+      child: Icon(
+        Icons.android,
+        color: Colors.green,
+        size: 50.0,
+      ),
+    );
+  }
+}
+
+class _Center extends StatelessWidget {
+  final String categoryName;
+  final String accountName;
+  final String itemName;
+
+  _Center(this.categoryName, this.accountName, this.itemName);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Expanded(
+        child: (Container(
+            padding: EdgeInsets.all(5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(categoryName),
+                Text(accountName),
+                Text(itemName),
+              ],
+            ))));
+  }
+}
+
+class _End extends StatelessWidget {
+  final String amount;
+
+  _End(this.amount);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 60,
+      height: 50,
+      padding: EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(amount),
+        ],
+      ),
     );
   }
 }

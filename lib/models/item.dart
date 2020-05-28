@@ -9,6 +9,7 @@ class ItemModel {
   int categoryId;
   int transactionType;
   int accountTransferToId;
+  // TODO - add date field
 
   ItemModel({this.id, this.name, this.amount, this.accountId, this.categoryId, this.transactionType, this.accountTransferToId});
 
