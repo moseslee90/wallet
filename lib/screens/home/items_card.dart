@@ -57,9 +57,16 @@ class _ItemList extends StatelessWidget {
       }
     }
 
-    return Column(
-      children: itemList,
-    );
+    return Container(
+        height: 300,
+        child: Scrollbar(
+            isAlwaysShown: true,
+            child: ListView.builder(
+                padding: EdgeInsets.only(right: 10),
+                itemCount: itemList.length,
+                itemBuilder: (context, int index) {
+                  return itemList[index];
+                })));
   }
 }
 
@@ -104,7 +111,8 @@ class _Center extends StatelessWidget {
   final String categoryName;
   final String accountName;
   final String itemName;
-  final TextStyle lightTextStyle = TextStyle(fontSize: lightFontSize, fontWeight: lightFontWeight);
+  final TextStyle lightTextStyle =
+      TextStyle(fontSize: lightFontSize, fontWeight: lightFontWeight);
 
   _Center(this.categoryName, this.accountName, this.itemName);
 
@@ -117,7 +125,10 @@ class _Center extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(categoryName, style: TextStyle(fontSize: firstRowFontSize, fontWeight: firstRowFontWeight)),
+                Text(categoryName,
+                    style: TextStyle(
+                        fontSize: firstRowFontSize,
+                        fontWeight: firstRowFontWeight)),
                 Text(accountName, style: lightTextStyle),
                 Text(itemName, style: lightTextStyle),
               ],
@@ -145,7 +156,11 @@ class _End extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Text(amountString, style: TextStyle(fontSize: firstRowFontSize, fontWeight: firstRowFontWeight, color: fontColor)),
+          Text(amountString,
+              style: TextStyle(
+                  fontSize: firstRowFontSize,
+                  fontWeight: firstRowFontWeight,
+                  color: fontColor)),
         ],
       ),
     );
