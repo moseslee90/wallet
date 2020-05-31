@@ -13,17 +13,17 @@ class AccountsCard extends StatelessWidget {
     return Card(
         margin: EdgeInsets.all(0),
         child: Container(
-          padding: EdgeInsets.only(bottom: 15),
+            padding: EdgeInsets.only(bottom: 15),
             child: Column(
-          children: <Widget>[
-            _Header(),
-            AccountIconsGrid(store.accounts),
-            GestureDetector(
-              onTap: () {},
-              child: Text('update accounts'),
-            ),
-          ],
-        )));
+              children: <Widget>[
+                _Header(),
+                AccountIconsGrid(store.accounts),
+                GestureDetector(
+                  onTap: () {},
+                  child: Text('update accounts'),
+                ),
+              ],
+            )));
   }
 }
 
@@ -83,15 +83,11 @@ class AccountIconsGrid extends StatelessWidget {
 
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
-        child: Row(
-          children: <Widget>[
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 4.0,
-              alignment: WrapAlignment.start,
-              children: _accountIcons(),
-            )
-          ],
+        child: Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          alignment: WrapAlignment.start,
+          children: _accountIcons(),
         ));
   }
 }

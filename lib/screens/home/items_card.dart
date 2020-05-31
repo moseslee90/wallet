@@ -63,14 +63,15 @@ class _ItemRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    final String _itemName = item.name;
-    final String _amount = item.amount.toString();
+    final String itemName = item.name;
+    final double amount = item.amount;
+    final int transactionType = item.transactionType;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _Icon(),
-        _Center(categoryName, accountName, _itemName),
-        _End(_amount),
+        _Center(categoryName, accountName, itemName),
+        _End(amount, transactionType),
       ],
     );
   }
@@ -117,12 +118,19 @@ class _Center extends StatelessWidget {
 }
 
 class _End extends StatelessWidget {
-  final String amount;
+  final double amount;
+  final int transactionType;
 
-  _End(this.amount);
+  _End(this.amount, this.transactionType);
 
   @override
   Widget build(BuildContext context) {
+    String amountString = (-amount).toString();
+    Color fontColor = Colors.redAccent;
+    if (transactionType == INCOME_INT) {
+      amountString = amount.toString();
+      fontColor = Colors.greenAccent;
+    }
     return Container(
       width: 60,
       height: 50,
@@ -131,7 +139,7 @@ class _End extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Text(amount, style: TextStyle(fontSize: firstRowFontSize, fontWeight: firstRowFontWeight, color: Colors.redAccent),),
+          Text(amountString, style: TextStyle(fontSize: firstRowFontSize, fontWeight: firstRowFontWeight, color: fontColor)),
         ],
       ),
     );

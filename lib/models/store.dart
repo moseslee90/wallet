@@ -24,10 +24,13 @@ class StoreModel extends ChangeNotifier {
   }
 
   _getStoreFromDb() async {
-    await _loadSeedData();
     await _getItemsFromDb();
     await _getAccountsFromDb();
     await _getCategoriesFromDb();
+    if(items.items == {} && accounts.accounts == {} && categories.categories == {}) {
+      await _loadSeedData();
+      _getStoreFromDb();
+    }
   }
 
   _getItemsFromDb() async {

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import './item.dart';
+import '../common/constants.dart';
 import 'package:wallet/database_helpers.dart' as databaseHelper;
 
 class ItemsModel {
@@ -26,7 +27,15 @@ class ItemsModel {
     double result = 0;
     items.forEach((_, item) {
       if(item.accountId == accountId) {
-        result += item.amount;
+        switch (item.transactionType) {
+          case EXPENSE_INT:
+          case TRANSFER_INT:
+            result -= item.amount;
+            break;
+          case INCOME_INT:
+            result += item.amount;
+            break;
+        }
       }
     });
     return result;
