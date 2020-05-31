@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ChangeNotifierProvider<StoreModel> storeProvider =
         ChangeNotifierProvider(create: (context) => StoreModel());
-    print(storeProvider);
     return MultiProvider(
       providers: [
         storeProvider,

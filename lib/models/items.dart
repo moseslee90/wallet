@@ -26,7 +26,7 @@ class ItemsModel {
   double getTotalForAccount(int accountId) {
     double result = 0;
     items.forEach((_, item) {
-      if(item.accountId == accountId) {
+      if (item.accountId == accountId) {
         switch (item.transactionType) {
           case EXPENSE_INT:
           case TRANSFER_INT:
@@ -36,6 +36,8 @@ class ItemsModel {
             result += item.amount;
             break;
         }
+      } else if (item.accountTransferToId == accountId) {
+        result += item.amount;
       }
     });
     return result;
@@ -43,6 +45,5 @@ class ItemsModel {
 
   addItem(ItemModel item) {
     items[item.id] = item;
-
   }
 }

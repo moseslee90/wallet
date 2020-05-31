@@ -35,8 +35,6 @@ class _AccountsList extends StatelessWidget {
     _accountModelList.sort((a, b) => a.position - b.position);
     List<_AccountRow> _accountRows = [];
     for(int i = 0; i < _accountModelList.length; i++) {
-      print('printing key');
-      print(i);
       _accountRows.add(_AccountRow(_accountModelList[i], ValueKey(i.toString())));
     }
 

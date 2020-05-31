@@ -86,8 +86,6 @@ class _AccountInputState extends State<AccountInput> {
                     // the form is invalid.
                     if (_formKey.currentState.validate()) {
                       // Process data.
-                      print(name);
-                      print(color);
                       Provider.of<StoreModel>(context, listen: false).addAccount(name, color);
                     }
                   },

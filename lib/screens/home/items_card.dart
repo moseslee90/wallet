@@ -42,9 +42,19 @@ class _ItemList extends StatelessWidget {
     List<Widget> itemList = [];
 
     for (var item in items) {
-      final _accountName = accounts[item.accountId].name;
-      final _categoryName = categories[item.categoryId].name;
-      itemList.add(_ItemRow(item, _accountName, _categoryName));
+      final itemName = item.name;
+      double amount = -item.amount;
+      String accountName = accounts[item.accountId].name;
+      final categoryName = categories[item.categoryId].name;
+      if (item.transactionType == INCOME_INT) {
+        amount = item.amount;
+      }
+      itemList.add(_ItemRow(itemName, amount, accountName, categoryName));
+      if (item.accountTransferToId != null) {
+        amount = item.amount;
+        accountName = accounts[item.accountTransferToId].name;
+        itemList.add(_ItemRow(itemName, amount, accountName, categoryName));
+      }
     }
 
     return Column(
@@ -54,24 +64,22 @@ class _ItemList extends StatelessWidget {
 }
 
 class _ItemRow extends StatelessWidget {
-  final ItemModel item;
+  final String itemName;
+  final double amount;
   final String accountName;
   final String categoryName;
 
-  _ItemRow(this.item, this.accountName, this.categoryName);
+  _ItemRow(this.itemName, this.amount, this.accountName, this.categoryName);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    final String itemName = item.name;
-    final double amount = item.amount;
-    final int transactionType = item.transactionType;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _Icon(),
         _Center(categoryName, accountName, itemName),
-        _End(amount, transactionType),
+        _End(amount),
       ],
     );
   }
@@ -119,16 +127,14 @@ class _Center extends StatelessWidget {
 
 class _End extends StatelessWidget {
   final double amount;
-  final int transactionType;
 
-  _End(this.amount, this.transactionType);
+  _End(this.amount);
 
   @override
   Widget build(BuildContext context) {
-    String amountString = (-amount).toString();
+    String amountString = amount.toString();
     Color fontColor = Colors.redAccent;
-    if (transactionType == INCOME_INT) {
-      amountString = amount.toString();
+    if (amount > 0) {
       fontColor = Colors.greenAccent;
     }
     return Container(

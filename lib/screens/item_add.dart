@@ -101,9 +101,7 @@ class _AddItemPageState extends State<AddItemPage> {
                 ))
             .toList();
     Map<int, AccountModel> transferAccounts = Map.from(store.accounts.accounts);
-    print(transferAccounts);
     transferAccounts.remove(accountId);
-    print(transferAccounts);
     List<DropdownMenuItem> dropdownTransferAccountIds = transferAccounts.values
         .map((_account) => DropdownMenuItem(
               value: _account.id,
@@ -192,9 +190,9 @@ class _AddItemPageState extends State<AddItemPage> {
                     // Validate will return true if the form is valid, or false if
                     // the form is invalid.
                     if (_formKey.currentState.validate()) {
-                      print('name: $name');
-                      print(
-                          'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType, transferAccount: $accountTransferToId');
+//                      print('name: $name');
+//                      print(
+//                          'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType, transferAccount: $accountTransferToId');
                       store.addItem(name, amount, accountId, categoryId, transactionType, accountTransferToId);
                     }
                   },
