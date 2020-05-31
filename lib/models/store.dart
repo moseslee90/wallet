@@ -95,6 +95,26 @@ class StoreModel extends ChangeNotifier {
     }
   }
 
+  updateItem(int id, String name, double amount, int accountId, int categoryId,
+      int transactionType, int accountTransferToId) async {
+    var item = ItemModel(
+        id: id,
+        name: name,
+        amount: amount,
+        accountId: accountId,
+        categoryId: categoryId,
+        transactionType: transactionType,
+        accountTransferToId: accountTransferToId);
+    try {
+      await dbInstance.updateItem(item);
+      items.updateItem(item);
+      await updateTotalsForAccounts();
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   addCategory(String name, int color) async {
     var category = CategoryModel(null, name, color);
     try {

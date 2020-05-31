@@ -7,7 +7,7 @@ import 'package:wallet/screens/item_add/transaction_type_radio.dart';
 import '../common/constants.dart';
 
 class AddItemPage extends StatefulWidget {
-  AddItemPage({Key key}) : super(key: key);
+  AddItemPage();
 
   @override
   State<StatefulWidget> createState() {

@@ -1,8 +1,5 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import './item.dart';
 import '../common/constants.dart';
-import 'package:wallet/database_helpers.dart' as databaseHelper;
 
 class ItemsModel {
   /// Internal, private state of items
@@ -44,6 +41,10 @@ class ItemsModel {
   }
 
   addItem(ItemModel item) {
+    items[item.id] = item;
+  }
+
+  updateItem(ItemModel item) {
     items[item.id] = item;
   }
 }

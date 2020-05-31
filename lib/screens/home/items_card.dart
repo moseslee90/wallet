@@ -40,12 +40,11 @@ class _ItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> itemList = [];
-
     for (var item in items) {
       final itemName = item.name;
       double amount = -item.amount;
-      String accountName = accounts[item.accountId].name;
-      final categoryName = categories[item.categoryId].name;
+      String accountName = accounts[item.accountId]?.name ?? '';
+      final categoryName = categories[item.categoryId]?.name ?? '';
       if (item.transactionType == INCOME_INT) {
         amount = item.amount;
       }
@@ -56,12 +55,16 @@ class _ItemList extends StatelessWidget {
         itemList.add(_ItemRow(itemName, amount, accountName, categoryName));
       }
     }
+    final ScrollController scrollController =
+        ScrollController(initialScrollOffset: 0);
 
     return Container(
         height: 300,
         child: Scrollbar(
+            controller: scrollController,
             isAlwaysShown: true,
             child: ListView.builder(
+                controller: scrollController,
                 padding: EdgeInsets.only(right: 10),
                 itemCount: itemList.length,
                 itemBuilder: (context, int index) {

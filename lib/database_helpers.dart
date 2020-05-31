@@ -119,6 +119,12 @@ class DatabaseHelper {
     return id;
   }
 
+  Future<int> updateItem(ItemModel item) async {
+    Database db = await database;
+    int id = await db.update(TABLE_ITEMS, item.toMap());
+    return id;
+  }
+
   Future<Map<int, ItemModel>> queryItems() async {
     Database db = await database;
     Map<int, ItemModel> itemModelMap = {};
@@ -163,7 +169,6 @@ class DatabaseHelper {
   }
 
   Future<Map<int, CategoryModel>> queryCategories() async {
-    print('getting categories from db');
     Database db = await database;
     Map<int, CategoryModel> categoryModelMap = {};
     List<Map> maps = await db.query(TABLE_CATEGORY, columns: [
