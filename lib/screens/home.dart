@@ -20,6 +20,10 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             AccountsCard(),
             ItemsCard(),
+            Container(
+              height: 100,
+              child: SizedBox.shrink(),
+            )
           ],
         ),
       ),
