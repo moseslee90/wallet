@@ -1,13 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet/common/scaffold.dart';
 import 'package:wallet/models/account.dart';
 import 'package:wallet/models/store.dart';
 import 'package:wallet/screens/item_add/transaction_type_radio.dart';
+
 import '../common/constants.dart';
 
 class AddItemPage extends StatefulWidget {
-  AddItemPage();
+  AddItemPage({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,6 +28,7 @@ class _AddItemPageState extends State<AddItemPage> {
   int categoryId;
   int transactionType = EXPENSE_INT;
   List<RadioModel> transactionRadios;
+  AutoSizeGroup autoSizeGroup = AutoSizeGroup();
 
   onNameChanged(value) {
     this.setState(() {
@@ -133,14 +137,17 @@ class _AddItemPageState extends State<AddItemPage> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-              CustomRadio(inputData: transactionRadios),
+              CustomRadio(
+                  inputData: transactionRadios, autoSizeGroup: autoSizeGroup),
               TextFormField(
+                keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
                   hintText: 'Enter Item Name',
                 ),
                 onChanged: onNameChanged,
               ),
               TextFormField(
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Enter Item Amount',
                 ),
@@ -193,7 +200,8 @@ class _AddItemPageState extends State<AddItemPage> {
 //                      print('name: $name');
 //                      print(
 //                          'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType, transferAccount: $accountTransferToId');
-                      store.addItem(name, amount, accountId, categoryId, transactionType, accountTransferToId);
+                      store.addItem(name, amount, accountId, categoryId,
+                          transactionType, accountTransferToId);
                     }
                   },
                   child: Text('Submit'),

@@ -1,25 +1,19 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomRadio extends StatelessWidget {
   final List<RadioModel> inputData;
+  final AutoSizeGroup autoSizeGroup;
 
-  CustomRadio({this.inputData});
+  CustomRadio({this.inputData, this.autoSizeGroup});
 
   @override
   Widget build(BuildContext context) {
     List<Widget> buttons = [];
 
     for (var i = 0; i < inputData.length; i++) {
-      buttons.add(FlatButton(
-//          splashColor: Colors.blueAccent,
-        onPressed: () {
-          if (inputData[i].callback != null) {
-            print('call back is not null');
-            inputData[i].callback();
-          }
-        },
-        child: RadioItem(inputData[i]),
-      ));
+      buttons
+          .add(RadioItem(inputData[i], inputData[i].callback, autoSizeGroup));
     }
 
     return Row(
@@ -31,30 +25,46 @@ class CustomRadio extends StatelessWidget {
 }
 
 class RadioItem extends StatelessWidget {
-  final RadioModel _item;
+  final RadioModel item;
+  final Function callback;
+  final AutoSizeGroup autoSizeGroup;
 
-  RadioItem(this._item);
+  RadioItem(this.item, this.callback, this.autoSizeGroup);
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      height: 45.0,
-      width: 90.0,
-      child: new Center(
-        child: new Text(_item.text,
-            style: new TextStyle(
-                color: _item.isSelected ? Colors.white : Colors.black,
-                //fontWeight: FontWeight.bold,
-                fontSize: 18.0)),
-      ),
-      decoration: new BoxDecoration(
-        color: _item.isSelected ? Colors.blueAccent : Colors.transparent,
-        border: new Border.all(
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Expanded(
+        child: Container(
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      height: screenWidth < screenHeight ? screenWidth / 8 : screenHeight / 16,
+      decoration: BoxDecoration(
+        color: item.isSelected ? Colors.blueAccent : Colors.transparent,
+        border: Border.all(
             width: 1.0,
-            color: _item.isSelected ? Colors.blueAccent : Colors.grey),
-        borderRadius: const BorderRadius.all(const Radius.circular(2.0)),
+            color: item.isSelected ? Colors.blueAccent : Colors.grey),
+        borderRadius: const BorderRadius.all(const Radius.circular(4.0)),
       ),
-    );
+      child: FlatButton(
+//          splashColor: Colors.blueAccent,
+        onPressed: () {
+          if (this.callback != null) {
+            this.callback();
+          }
+        },
+        child: AutoSizeText(
+          item.text,
+          style: TextStyle(
+            color: item.isSelected ? Colors.white : Colors.black,
+            fontSize: 30,
+          ),
+          maxLines: 1,
+          group: autoSizeGroup,
+        ),
+      ),
+    ));
   }
 }
 

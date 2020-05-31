@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet/common/scaffold.dart';
 import 'package:wallet/models/store.dart';
+
 import '../common/constants.dart';
 
 class AddCategoryPage extends StatelessWidget {
@@ -28,8 +29,7 @@ class _CategoryFormState extends State<_CategoryForm> {
           value: defaultColor,
           child: Text(defaultColor, style: TextStyle(color: Colors.grey)))
     ];
-    dropdownColors
-        .addAll(colorsListString.map((String value) {
+    dropdownColors.addAll(colorsListString.map((String value) {
       return DropdownMenuItem(
         value: value,
         child: Text(value),
@@ -81,7 +81,6 @@ class _CategoryFormState extends State<_CategoryForm> {
                     // the form is invalid.
                     if (_formKey.currentState.validate()) {
                       // Process data.
-                      print(name);
                       Provider.of<StoreModel>(context, listen: false)
                           .addCategory(name, color);
                     }
