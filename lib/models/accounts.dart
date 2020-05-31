@@ -17,4 +17,8 @@ class AccountsModel {
   addAccount(AccountModel account) {
     accounts[account.id] = account;
   }
+
+  String getName(int id) {
+    return accounts[id]?.name ?? '';
+  }
 }

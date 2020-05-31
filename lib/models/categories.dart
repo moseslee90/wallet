@@ -8,4 +8,8 @@ class CategoriesModel {
   addCategory(CategoryModel category) {
     categories[category.id] = category;
   }
+
+  String getName(int id) {
+    return categories[id]?.name ?? '';
+  }
 }

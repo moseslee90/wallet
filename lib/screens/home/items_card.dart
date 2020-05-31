@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet/common/constants.dart';
-import 'package:wallet/models/account.dart';
-import 'package:wallet/models/category.dart';
+import 'package:wallet/models/accounts.dart';
+import 'package:wallet/models/categories.dart';
 import 'package:wallet/models/item.dart';
 import 'package:wallet/models/store.dart';
 
@@ -16,8 +16,8 @@ class ItemsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     var store = Provider.of<StoreModel>(context);
-    Map<int, AccountModel> accounts = store.accounts.accounts;
-    Map<int, CategoryModel> categories = store.categories.categories;
+    AccountsModel accounts = store.accounts;
+    CategoriesModel categories = store.categories;
     List<ItemModel> items = store.items.items.values.toList();
 
     return Card(
@@ -32,8 +32,8 @@ class ItemsCard extends StatelessWidget {
 
 class _ItemList extends StatelessWidget {
   final List<ItemModel> items;
-  final Map<int, AccountModel> accounts;
-  final Map<int, CategoryModel> categories;
+  final AccountsModel accounts;
+  final CategoriesModel categories;
 
   _ItemList(this.items, this.accounts, this.categories);
 
@@ -43,15 +43,15 @@ class _ItemList extends StatelessWidget {
     for (var item in items) {
       final itemName = item.name;
       double amount = -item.amount;
-      String accountName = accounts[item.accountId]?.name ?? '';
-      final categoryName = categories[item.categoryId]?.name ?? '';
+      String accountName = accounts.getName(item.accountId);
+      final categoryName = categories.getName(item.categoryId);
       if (item.transactionType == INCOME_INT) {
         amount = item.amount;
       }
       itemList.add(_ItemRow(itemName, amount, accountName, categoryName));
       if (item.accountTransferToId != null) {
         amount = item.amount;
-        accountName = accounts[item.accountTransferToId].name;
+        accountName = accounts.getName(item.accountTransferToId);
         itemList.add(_ItemRow(itemName, amount, accountName, categoryName));
       }
     }
