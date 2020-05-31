@@ -33,7 +33,8 @@ class ItemsModel {
             result += item.amount;
             break;
         }
-      } else if (item.accountTransferToId == accountId) {
+      } else if (item.accountTransferToId == accountId &&
+          item.transactionType == TRANSFER_INT) {
         result += item.amount;
       }
     });

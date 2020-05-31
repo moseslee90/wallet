@@ -128,7 +128,22 @@ class _AddItemPageState extends State<AddItemPage> {
             onChanged: onTransferAccountIdChanged,
           )
         : SizedBox.shrink();
-
+    Widget categoryDropdown = transactionType == TRANSFER_INT
+        ? SizedBox.shrink()
+        : DropdownButtonFormField(
+            value: categoryId,
+            decoration: const InputDecoration(
+              hintText: 'Select Category',
+            ),
+            validator: (value) {
+              if (value == null) {
+                return 'Please Choose a Category';
+              }
+              return null;
+            },
+            items: dropdownCategoryIds,
+            onChanged: onCategoryIdChanged,
+          );
     // TODO: implement build
     return MyScaffold(
       body: Form(
@@ -176,20 +191,7 @@ class _AddItemPageState extends State<AddItemPage> {
                 onChanged: onAccountIdChanged,
               ),
               transferToAccountDropdown,
-              DropdownButtonFormField(
-                value: categoryId,
-                decoration: const InputDecoration(
-                  hintText: 'Select Category',
-                ),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please Choose a Category';
-                  }
-                  return null;
-                },
-                items: dropdownCategoryIds,
-                onChanged: onCategoryIdChanged,
-              ),
+              categoryDropdown,
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: RaisedButton(
@@ -200,6 +202,9 @@ class _AddItemPageState extends State<AddItemPage> {
 //                      print('name: $name');
 //                      print(
 //                          'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType, transferAccount: $accountTransferToId');
+                      if (transactionType == TRANSFER_INT) {
+                        categoryId = transferCategoryId;
+                      }
                       store.addItem(name, amount, accountId, categoryId,
                           transactionType, accountTransferToId);
                     }

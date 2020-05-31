@@ -61,6 +61,8 @@ const String COLUMN_NAME = 'name';
 // paths
 const String PATH_HOME = '/';
 const String PATH_ACCOUNT_ADD = '/account/add';
-const String PATH_ACCOUNT_SETTINGS ='/account/settings';
+const String PATH_ACCOUNT_SETTINGS = '/account/settings';
 const String PATH_ITEM_ADD = '/item/add';
 const String PATH_CATEGORY_ADD = '/category/add';
+
+int transferCategoryId;

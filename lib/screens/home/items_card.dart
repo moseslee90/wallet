@@ -59,7 +59,7 @@ class _ItemList extends StatelessWidget {
         ScrollController(initialScrollOffset: 0);
 
     return Container(
-        height: 300,
+        height: MediaQuery.of(context).size.width * 4 / 5,
         child: Scrollbar(
             controller: scrollController,
             isAlwaysShown: true,

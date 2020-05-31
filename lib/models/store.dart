@@ -152,50 +152,21 @@ class StoreModel extends ChangeNotifier {
 
   _loadSeedData() async {
     try {
-      final CategoryModel foodCategory =
-          CategoryModel(null, 'Food', ORANGE_INT);
-      await dbInstance.insertCategory(foodCategory);
-      final CategoryModel shoppingCategory =
-          CategoryModel(null, 'Shopping', BLUE_INT);
-      await dbInstance.insertCategory(shoppingCategory);
-      final AccountModel grabAccount =
-          AccountModel(null, 'Grab Pay', GREEN_INT);
-      await dbInstance.insertAccount(grabAccount);
-      final AccountModel bankAccount = AccountModel(null, 'Bank', BLUE_INT);
-      await dbInstance.insertAccount(bankAccount);
-      final AccountModel cashAccount = AccountModel(null, 'Cash', ORANGE_INT);
-      await dbInstance.insertAccount(cashAccount);
-      final ItemModel chickenRice = ItemModel(
-          name: "Chicken Rice",
-          amount: 3.6,
-          accountId: 1,
-          categoryId: 1,
-          transactionType: EXPENSE_INT);
-      await dbInstance.insertItem(chickenRice);
-      ;
-      final ItemModel beefNoodles = ItemModel(
-          name: "Beef Noodles",
-          amount: 5,
-          accountId: 2,
-          categoryId: 1,
-          transactionType: EXPENSE_INT);
-      await dbInstance.insertItem(beefNoodles);
-      ;
-      final ItemModel charSiewBao = ItemModel(
-          name: "Char Siew Bao",
-          amount: 0.8,
-          accountId: 1,
-          categoryId: 1,
-          transactionType: EXPENSE_INT);
-      await dbInstance.insertItem(charSiewBao);
-      ;
-      final ItemModel keyboard = ItemModel(
-          name: "Keyboard",
-          amount: 50,
-          accountId: 3,
-          categoryId: 2,
-          transactionType: EXPENSE_INT);
-      await dbInstance.insertItem(keyboard);
+      final CategoryModel transferCategory =
+          CategoryModel(null, 'Transfer, Withdraw', ORANGE_INT);
+      transferCategoryId = await dbInstance.insertCategory(transferCategory);
+      addCategory('Salary', GREEN_INT);
+      addCategory('Food', ORANGE_INT);
+      addCategory('Shopping', BLUE_INT);
+      addAccount('Grab Pay', GREEN_INT);
+      addAccount('Bank', BLUE_INT);
+      addAccount('Cash', ORANGE_INT);
+      addItem("Chicken Rice", 3.6, 1, 3, EXPENSE_INT, null);
+      addItem("Beef Noodles", 5, 2, 3, EXPENSE_INT, null);
+      addItem("Char Siew Bao", 0.8, 1, 3, EXPENSE_INT, null);
+      addItem("Keyboard", 0, 3, 4, EXPENSE_INT, null);
+      addItem("Salary", 100, 2, 2, INCOME_INT, null);
+      addItem("Transfer to Cash", 100, 2, 2, TRANSFER_INT, 3);
     } catch (e) {
       print(e);
     }
