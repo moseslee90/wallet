@@ -5,6 +5,7 @@ import 'package:wallet/models/accounts.dart';
 import 'package:wallet/models/categories.dart';
 import 'package:wallet/models/item.dart';
 import 'package:wallet/models/store.dart';
+import 'package:wallet/screens/item_update.dart';
 
 const double firstRowFontSize = 16;
 const FontWeight firstRowFontWeight = FontWeight.w500;
@@ -41,18 +42,22 @@ class _ItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> itemList = [];
     for (var item in items) {
-      final itemName = item.name;
+      // initialise amount as negative, assume is expense
+      // or a transfer out
       double amount = -item.amount;
       String accountName = accounts.getName(item.accountId);
       final categoryName = categories.getName(item.categoryId);
+      // if item is INCOME change amount to positive
       if (item.transactionType == INCOME_INT) {
         amount = item.amount;
       }
-      itemList.add(_ItemRow(itemName, amount, accountName, categoryName));
+      itemList.add(_ItemRow(item, amount, accountName, categoryName));
+      // if item accountTransferToId is not null, add row
+      // to show amount being transferred into account
       if (item.accountTransferToId != null) {
         amount = item.amount;
         accountName = accounts.getName(item.accountTransferToId);
-        itemList.add(_ItemRow(itemName, amount, accountName, categoryName));
+        itemList.add(_ItemRow(item, amount, accountName, categoryName));
       }
     }
     final ScrollController scrollController =
@@ -74,23 +79,31 @@ class _ItemList extends StatelessWidget {
 }
 
 class _ItemRow extends StatelessWidget {
-  final String itemName;
+  final ItemModel itemModel;
   final double amount;
   final String accountName;
   final String categoryName;
 
-  _ItemRow(this.itemName, this.amount, this.accountName, this.categoryName);
+  _ItemRow(this.itemModel, this.amount, this.accountName, this.categoryName);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        _Icon(),
-        _Center(categoryName, accountName, itemName),
-        _End(amount),
-      ],
+    return GestureDetector(
+      onTap: () {
+        print('item tapped');
+        print(itemModel);
+        Navigator.pushNamed(context, UpdateItemPageScreen.routeName,
+            arguments: UpdateItemPageArguments(itemModel));
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _Icon(),
+          _Center(categoryName, accountName, itemModel.name),
+          _End(amount),
+        ],
+      ),
     );
   }
 }

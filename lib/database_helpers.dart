@@ -121,7 +121,8 @@ class DatabaseHelper {
 
   Future<int> updateItem(ItemModel item) async {
     Database db = await database;
-    int id = await db.update(TABLE_ITEMS, item.toMap());
+    int id = await db.update(TABLE_ITEMS, item.toMap(),
+      where: '$COLUMN_ID = ?', whereArgs: [item.id]);
     return id;
   }
 

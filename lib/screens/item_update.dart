@@ -8,6 +8,24 @@ import 'package:wallet/screens/item_add/transaction_type_radio.dart';
 
 import '../common/constants.dart';
 
+class UpdateItemPageArguments {
+  final ItemModel itemModel;
+
+  UpdateItemPageArguments(this.itemModel);
+}
+
+class UpdateItemPageScreen extends StatelessWidget {
+  static const routeName = PATH_ITEM_UPDATE;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    final UpdateItemPageArguments args = ModalRoute.of(context).settings.arguments;
+
+    return UpdateItemPage(itemModel: args.itemModel);
+  }
+}
+
 class UpdateItemPage extends StatefulWidget {
   final ItemModel itemModel;
   UpdateItemPage({Key key, this.itemModel}) : super(key: key);
@@ -207,7 +225,7 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
 //                      print('name: $name');
 //                      print(
 //                          'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType, transferAccount: $accountTransferToId');
-                      store.addItem(name, amount, accountId, categoryId,
+                      store.updateItem(id, name, amount, accountId, categoryId,
                           transactionType, accountTransferToId);
                     }
                   },
