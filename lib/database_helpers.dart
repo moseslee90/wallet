@@ -122,8 +122,15 @@ class DatabaseHelper {
   Future<int> updateItem(ItemModel item) async {
     Database db = await database;
     int id = await db.update(TABLE_ITEMS, item.toMap(),
-      where: '$COLUMN_ID = ?', whereArgs: [item.id]);
+        where: '$COLUMN_ID = ?', whereArgs: [item.id]);
     return id;
+  }
+
+  Future<int> deleteItem(int id) async {
+    Database db = await database;
+    int deletedId = await db
+        .delete(TABLE_ITEMS, where: '$COLUMN_ID = ?', whereArgs: [id]);
+    return deletedId;
   }
 
   Future<Map<int, ItemModel>> queryItems() async {
@@ -157,8 +164,8 @@ class DatabaseHelper {
   Future<Map<int, ItemModel>> queryCategory() async {
     Database db = await database;
     Map<int, ItemModel> itemModelMap = {};
-    List<Map> maps =
-        await db.query(TABLE_CATEGORY, columns: [COLUMN_ID, COLUMN_NAME, COLUMN_COLOR]);
+    List<Map> maps = await db
+        .query(TABLE_CATEGORY, columns: [COLUMN_ID, COLUMN_NAME, COLUMN_COLOR]);
     maps.forEach((map) {
       ItemModel item = ItemModel.fromMap(map);
       itemModelMap[item.id] = item;
@@ -172,11 +179,8 @@ class DatabaseHelper {
   Future<Map<int, CategoryModel>> queryCategories() async {
     Database db = await database;
     Map<int, CategoryModel> categoryModelMap = {};
-    List<Map> maps = await db.query(TABLE_CATEGORY, columns: [
-      COLUMN_ID,
-      COLUMN_NAME,
-      COLUMN_COLOR
-    ]);
+    List<Map> maps = await db
+        .query(TABLE_CATEGORY, columns: [COLUMN_ID, COLUMN_NAME, COLUMN_COLOR]);
     maps.forEach((map) {
       CategoryModel category = CategoryModel.fromMap(map);
       categoryModelMap[category.id] = category;

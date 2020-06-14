@@ -48,4 +48,8 @@ class ItemsModel {
   updateItem(ItemModel item) {
     items[item.id] = item;
   }
+
+  deleteItem(int id) {
+    items.remove(id);
+  }
 }
