@@ -20,7 +20,8 @@ class UpdateItemPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    final UpdateItemPageArguments args = ModalRoute.of(context).settings.arguments;
+    final UpdateItemPageArguments args =
+        ModalRoute.of(context).settings.arguments;
 
     return UpdateItemPage(itemModel: args.itemModel);
   }
@@ -28,6 +29,7 @@ class UpdateItemPageScreen extends StatelessWidget {
 
 class UpdateItemPage extends StatefulWidget {
   final ItemModel itemModel;
+
   UpdateItemPage({Key key, this.itemModel}) : super(key: key);
 
   @override
@@ -158,80 +160,129 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
     return MyScaffold(
       body: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-              CustomRadio(inputData: transactionRadios),
-              TextFormField(
-                initialValue: name,
-                decoration: const InputDecoration(
-                  hintText: 'Enter Item Name',
+        child: Container(
+          padding: EdgeInsets.only(top: 15.0, left: 15.0, right: 15.0),
+          child: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                CustomRadio(inputData: transactionRadios),
+                TextFormField(
+                  initialValue: name,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Item Name',
+                  ),
+                  onChanged: onNameChanged,
                 ),
-                onChanged: onNameChanged,
-              ),
-              TextFormField(
-                initialValue: amount.toString(),
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: 'Enter Item Amount',
-                ),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text';
-                  } else if (double.tryParse(value) == null) {
-                    return 'Please enter a number';
-                  }
-                  return null;
-                },
-                onChanged: onAmountChanged,
-              ),
-              DropdownButtonFormField(
-                value: accountId,
-                decoration: const InputDecoration(
-                  hintText: 'Select Account',
-                ),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please Choose an Account';
-                  }
-                  return null;
-                },
-                items: dropdownAccountIds,
-                onChanged: onAccountIdChanged,
-              ),
-              transferToAccountDropdown,
-              DropdownButtonFormField(
-                value: categoryId,
-                decoration: const InputDecoration(
-                  hintText: 'Select Category',
-                ),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please Choose a Category';
-                  }
-                  return null;
-                },
-                items: dropdownCategoryIds,
-                onChanged: onCategoryIdChanged,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    // Validate will return true if the form is valid, or false if
-                    // the form is invalid.
-                    if (_formKey.currentState.validate()) {
-                      store.updateItem(id, name, amount, accountId, categoryId,
-                          transactionType, accountTransferToId);
-                      Navigator.pushNamed((context), PATH_HOME);
+                TextFormField(
+                  initialValue: amount.toString(),
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Item Amount',
+                  ),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    } else if (double.tryParse(value) == null) {
+                      return 'Please enter a number';
                     }
+                    return null;
                   },
-                  child: Text('Submit'),
+                  onChanged: onAmountChanged,
                 ),
-              ),
-            ])),
+                DropdownButtonFormField(
+                  value: accountId,
+                  decoration: const InputDecoration(
+                    hintText: 'Select Account',
+                  ),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please Choose an Account';
+                    }
+                    return null;
+                  },
+                  items: dropdownAccountIds,
+                  onChanged: onAccountIdChanged,
+                ),
+                transferToAccountDropdown,
+                DropdownButtonFormField(
+                  value: categoryId,
+                  decoration: const InputDecoration(
+                    hintText: 'Select Category',
+                  ),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please Choose a Category';
+                    }
+                    return null;
+                  },
+                  items: dropdownCategoryIds,
+                  onChanged: onCategoryIdChanged,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(right: 5.0),
+                        child: RaisedButton(
+                          onPressed: () {
+                            // Validate will return true if the form is valid, or false if
+                            // the form is invalid.
+                            if (_formKey.currentState.validate()) {
+                              store.updateItem(
+                                  id,
+                                  name,
+                                  amount,
+                                  accountId,
+                                  categoryId,
+                                  transactionType,
+                                  accountTransferToId);
+                              Navigator.pushNamed((context), PATH_HOME);
+                            }
+                          },
+                          child: Text('Submit'),
+                        ),
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          // Show Alert dialog to delete item
+                          _showDeleteDialog(context, store, id);
+                        },
+                        child: Text('Delete'),
+                      ),
+                    ],
+                  ),
+                ),
+              ])),
+        ),
       ),
     );
   }
+}
+
+Future<void> _showDeleteDialog(BuildContext ctx, StoreModel store, int id) async {
+  return showDialog<void>(
+      context: ctx,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: Text('Delete Item'),
+            content: Text('Warning, delete is permanent!'),
+            actions: <Widget>[
+              FlatButton(
+                  child: Text('Confirm'),
+                  onPressed: () {
+                    print('confirm clicked');
+                    store.deleteItem(id);
+                    Navigator.pushNamed(context, PATH_HOME);
+                  }),
+              FlatButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    print('cancel clicked');
+                    Navigator.of(context).pop();
+                  }),
+            ]);
+      });
 }
