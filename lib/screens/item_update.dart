@@ -96,7 +96,7 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
         .map((transInt, transStr) => MapEntry(
             transInt,
             RadioModel(
-              isSelected: transInt == EXPENSE_INT,
+              isSelected: transInt == transactionType,
               text: transStr,
               value: transInt,
             )))
@@ -222,11 +222,9 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
                     // Validate will return true if the form is valid, or false if
                     // the form is invalid.
                     if (_formKey.currentState.validate()) {
-//                      print('name: $name');
-//                      print(
-//                          'amount: $amount, accountId: $accountId, categoryId: $categoryId, transactionId: $transactionType, transferAccount: $accountTransferToId');
                       store.updateItem(id, name, amount, accountId, categoryId,
                           transactionType, accountTransferToId);
+                      Navigator.pushNamed((context), PATH_HOME);
                     }
                   },
                   child: Text('Submit'),
